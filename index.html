@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La Querencia – Parrilla Argentina | Cali, Colombia</title>
+  <meta name="description" content="La Querencia, auténtica Parrilla Argentina en el corazón de Cali. Cortes premium, vinos argentinos y la mejor experiencia gastronómica.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @font-face {
+      font-family: 'Doulos SIL Compact';
+      src: url('fonts/DoulosSIL-Regular.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+    :root {
+      --black:      #0D0501;
+      --dark:       #1a0a00;
+      --wine:       #7B1818;
+      --gold:       #ce5818;
+      --gold-light: #e06a2a;
+      --cream:      #F5E6C8;
+      --text:       #F0EAD6;
+      --muted:      #A89880;
+      --serif:      'Playfair Display', serif;
+      --brand:      'Doulos SIL Compact', 'Doulos SIL', serif;
+      --elegant:    'Cormorant Garamond', serif;
+      --sans:       'Lato', sans-serif;
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { background:var(--black); color:var(--text); font-family:var(--sans); overflow-x:hidden; }
+    img { display:block; }
+    a { color:inherit; text-decoration:none; }
+
+    /* ── UTILITY ── */
+    .container { max-width:1200px; margin:0 auto; }
+    .section-tag {
+      display:block; font-size:.75rem; letter-spacing:4px;
+      text-transform:uppercase; color:var(--gold); margin-bottom:1rem;
+    }
+    .section-title {
+      font-family:var(--serif); font-size:clamp(2.4rem,5vw,3.8rem);
+      font-weight:700; color:var(--cream); line-height:1.1;
+    }
+    .section-desc {
+      font-family:var(--elegant); font-size:1.15rem; color:var(--muted);
+      line-height:1.9; margin-top:1.2rem;
+    }
+    .divider {
+      display:flex; align-items:center; gap:1.2rem;
+      margin:1.8rem 0; width:fit-content;
+    }
+    .divider-line { width:55px; height:1px; background:var(--gold); opacity:.55; }
+    .divider-diamond { width:7px; height:7px; background:var(--gold); transform:rotate(45deg); flex-shrink:0; }
+
+    .btn-gold {
+      display:inline-block; background:var(--gold); color:var(--black);
+      padding:.9rem 2.4rem; font-size:.8rem; font-weight:700;
+      letter-spacing:2px; text-transform:uppercase; border:none;
+      cursor:pointer; transition:background .25s, transform .2s, box-shadow .25s;
+    }
+    .btn-gold:hover { background:var(--gold-light); transform:translateY(-2px); box-shadow:0 8px 24px rgba(201,162,39,.3); }
+    .btn-outline {
+      display:inline-block; background:transparent; color:var(--cream);
+      padding:.9rem 2.4rem; font-size:.8rem; font-weight:400;
+      letter-spacing:2px; text-transform:uppercase;
+      border:1px solid rgba(245,230,200,.45); cursor:pointer;
+      transition:border-color .25s, color .25s;
+    }
+    .btn-outline:hover { border-color:var(--gold); color:var(--gold); }
+
+    /* fade-in animation */
+    .fi { opacity:0; transform:translateY(28px); transition:opacity .65s ease, transform .65s ease; }
+    .fi.d1 { transition-delay:.1s; } .fi.d2 { transition-delay:.2s; }
+    .fi.d3 { transition-delay:.3s; } .fi.d4 { transition-delay:.4s; }
+    .fi.vis { opacity:1; transform:translateY(0); }
+
+    /* ── NAVBAR ── */
+    #nav {
+      position:fixed; top:0; width:100%; z-index:999;
+      padding:1.6rem 4rem; display:flex; justify-content:space-between;
+      align-items:center; transition:all .4s;
+    }
+    #nav.solid {
+      background:rgba(13,5,1,.96); backdrop-filter:blur(12px);
+      padding:1rem 4rem; box-shadow:0 2px 20px rgba(0,0,0,.5);
+    }
+    .nav-logo {
+      display:flex; align-items:center; gap:.7rem;
+    }
+    .nav-logo img { height:38px; width:auto; flex-shrink:0; }
+    .nav-logo span {
+      font-family:var(--brand); font-size:1.5rem; color:var(--gold);
+      letter-spacing:-0.5px; font-weight:normal;
+    }
+    .hero-logo-wrap { display:flex; justify-content:center; margin-bottom:2rem; }
+    .hero-logo { height:160px; width:auto; object-fit:contain; filter:drop-shadow(0 6px 28px rgba(0,0,0,.7)); }
+    .nav-links { display:flex; list-style:none; gap:2.4rem; align-items:center; }
+    .nav-links a {
+      font-size:.78rem; letter-spacing:2px; text-transform:uppercase;
+      font-weight:300; color:var(--text); transition:color .25s;
+    }
+    .nav-links a:hover { color:var(--gold); }
+    .nav-links .nav-cta {
+      background:var(--gold); color:var(--black) !important;
+      padding:.55rem 1.4rem; font-weight:700 !important;
+    }
+    .nav-links .nav-cta:hover { background:var(--gold-light); }
+
+    .hamburger { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:4px; }
+    .hamburger span { display:block; width:24px; height:2px; background:var(--gold); transition:all .3s; }
+
+    /* ── HERO ── */
+    #hero {
+      position:relative; height:100vh; min-height:660px;
+      display:flex; align-items:center; justify-content:center;
+      text-align:center; overflow:hidden;
+    }
+    .hero-bg {
+      position:absolute; inset:0;
+      background:url('https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&w=1920&q=80') center/cover no-repeat;
+      transform:scale(1.06); transition:transform 9s ease;
+    }
+    .hero-bg.loaded { transform:scale(1); }
+    .hero-overlay {
+      position:absolute; inset:0;
+      background:linear-gradient(to bottom, rgba(13,5,1,.25) 0%, rgba(13,5,1,.55) 45%, rgba(13,5,1,.9) 100%);
+    }
+    .hero-inner { position:relative; z-index:2; max-width:860px; padding:0 2rem; }
+    .hero-eyebrow {
+      font-size:.75rem; letter-spacing:5px; text-transform:uppercase;
+      color:var(--gold); margin-bottom:1.6rem; display:block;
+    }
+    .hero-title {
+      font-family:var(--brand); font-size:clamp(4.5rem,11vw,8.5rem);
+      font-weight:normal; color:var(--cream); line-height:.95;
+      text-shadow:0 4px 24px rgba(0,0,0,.4); margin-bottom:1.2rem;
+    }
+    .hero-title em { font-style:italic; color:var(--gold); }
+    .hero-sub {
+      font-family:var(--elegant); font-size:clamp(1.2rem,2.5vw,1.7rem);
+      font-weight:300; color:var(--muted); letter-spacing:2px; margin-bottom:3rem;
+    }
+    .hero-btns { display:flex; gap:1.4rem; justify-content:center; flex-wrap:wrap; }
+    .hero-scroll {
+      position:absolute; bottom:2.2rem; left:50%; transform:translateX(-50%);
+      z-index:2; color:var(--muted); font-size:.65rem; letter-spacing:3px;
+      text-transform:uppercase; display:flex; flex-direction:column;
+      align-items:center; gap:.4rem; animation:bounce 2.2s infinite;
+    }
+    @keyframes bounce {
+      0%,100% { transform:translateX(-50%) translateY(0); }
+      50%      { transform:translateX(-50%) translateY(7px); }
+    }
+
+    /* ── NOSOTROS ── */
+    #nosotros { padding:8rem 4rem; background:var(--dark); }
+    .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:6rem; align-items:center; }
+    .about-images { position:relative; height:580px; }
+    .about-img-main {
+      position:absolute; top:0; left:0; width:76%; height:82%;
+      object-fit:cover;
+    }
+    .about-img-secondary {
+      position:absolute; bottom:0; right:0; width:56%; height:52%;
+      object-fit:cover; border:4px solid var(--dark);
+    }
+    .about-badge {
+      position:absolute; bottom:9%; left:0; z-index:3;
+      background:var(--wine); padding:1.4rem 1.8rem; text-align:center;
+    }
+    .about-badge-num { font-family:var(--serif); font-size:2.4rem; color:var(--gold); line-height:1; }
+    .about-badge-lbl { font-size:.65rem; letter-spacing:2px; text-transform:uppercase; color:var(--text); margin-top:.3rem; }
+    .about-text { font-family:var(--elegant); font-size:1.1rem; color:var(--muted); line-height:1.9; margin-bottom:1.4rem; }
+    .about-text em { color:var(--cream); font-style:italic; }
+    .features { display:grid; grid-template-columns:1fr 1fr; gap:1.6rem; margin-top:2.4rem; }
+    .feature { display:flex; gap:.9rem; align-items:flex-start; }
+    .feature i { color:var(--gold); font-size:1.1rem; margin-top:.2rem; flex-shrink:0; }
+    .feature h4 { font-family:var(--serif); font-size:.95rem; color:var(--cream); margin-bottom:.25rem; }
+    .feature p { font-size:.82rem; color:var(--muted); line-height:1.6; }
+
+    /* ── MENU ── */
+    #menu { padding:8rem 4rem; background:var(--black); position:relative; overflow:hidden; }
+    .menu-watermark {
+      position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+      font-family:var(--serif); font-size:18rem; color:rgba(255,255,255,.018);
+      white-space:nowrap; pointer-events:none; user-select:none;
+    }
+    .menu-tabs { display:flex; justify-content:center; flex-wrap:wrap; margin-bottom:3.5rem; }
+    .tab {
+      background:transparent; border:1px solid rgba(201,162,39,.3);
+      color:var(--muted); padding:.75rem 1.7rem; font-size:.75rem;
+      letter-spacing:2px; text-transform:uppercase; cursor:pointer;
+      font-family:var(--sans); transition:all .25s;
+    }
+    .tab:not(:first-child) { border-left:none; }
+    .tab.on, .tab:hover { background:var(--gold); color:var(--black); border-color:var(--gold); }
+    .menu-cat { display:none; }
+    .menu-cat.on { display:grid; grid-template-columns:repeat(auto-fit,minmax(460px,1fr)); }
+    .menu-item {
+      display:flex; justify-content:space-between; align-items:flex-start;
+      padding:1.4rem 1.8rem; border-bottom:1px solid rgba(255,255,255,.055);
+      gap:2rem; transition:background .25s;
+    }
+    .menu-item:hover { background:rgba(201,162,39,.04); }
+    .menu-item h3 { font-family:var(--serif); font-size:1.05rem; color:var(--cream); margin-bottom:.3rem; }
+    .menu-item p { font-family:var(--elegant); font-size:.9rem; color:var(--muted); line-height:1.65; max-width:310px; }
+    .menu-price { font-family:var(--serif); font-size:.95rem; color:var(--gold); white-space:nowrap; flex-shrink:0; padding-top:.15rem; }
+    .menu-note { text-align:center; margin-top:2.5rem; font-family:var(--elegant); font-size:.95rem; color:var(--muted); }
+
+    /* ── GALERÍA ── */
+    #galeria { padding:8rem 4rem; background:var(--dark); }
+    .gallery-grid {
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      grid-auto-rows:260px;
+      gap:.9rem;
+      max-width:1200px;
+      margin:0 auto;
+    }
+    .g-item { position:relative; overflow:hidden; cursor:pointer; }
+    .g-item img { width:100%; height:100%; object-fit:cover; transition:transform .5s; }
+    .g-item:hover img { transform:scale(1.08); }
+    .g-overlay {
+      position:absolute; inset:0; background:rgba(13,5,1,0);
+      display:flex; align-items:center; justify-content:center;
+      transition:background .3s;
+    }
+    .g-overlay i { color:var(--gold); font-size:1.8rem; opacity:0; transition:opacity .3s; }
+    .g-item:hover .g-overlay { background:rgba(13,5,1,.5); }
+    .g-item:hover .g-overlay i { opacity:1; }
+    .gallery-cta { text-align:center; margin-top:2.8rem; }
+
+    /* ── RESERVAS ── */
+    #reservas {
+      padding:8rem 4rem;
+      background:linear-gradient(135deg,#190900 0%,var(--black) 55%,#160404 100%);
+      position:relative; overflow:hidden;
+    }
+    #reservas::before {
+      content:''; position:absolute; top:-30%; right:-15%;
+      width:550px; height:550px;
+      background:radial-gradient(circle,rgba(123,24,24,.18) 0%,transparent 68%);
+      pointer-events:none;
+    }
+    .reservas-grid { display:grid; grid-template-columns:1fr 1.25fr; gap:6rem; align-items:start; }
+    .detail-item { display:flex; gap:1.4rem; margin-bottom:1.9rem; align-items:flex-start; }
+    .detail-icon {
+      width:48px; height:48px; flex-shrink:0;
+      border:1px solid rgba(201,162,39,.4);
+      display:flex; align-items:center; justify-content:center; color:var(--gold);
+    }
+    .detail-text h4 { font-family:var(--serif); color:var(--cream); margin-bottom:.3rem; }
+    .detail-text p { color:var(--muted); font-size:.88rem; line-height:1.65; }
+    .res-form {
+      background:rgba(255,255,255,.025); border:1px solid rgba(201,162,39,.14);
+      padding:3rem;
+    }
+    .res-form-title { font-family:var(--serif); font-size:1.75rem; color:var(--cream); margin-bottom:2rem; }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:.9rem; }
+    .fg { margin-bottom:1.1rem; }
+    .fg label { display:block; font-size:.7rem; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:.45rem; }
+    .fg input, .fg select, .fg textarea {
+      width:100%; background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.1); color:var(--text);
+      padding:.85rem 1rem; font-family:var(--sans); font-size:.92rem;
+      outline:none; transition:border-color .25s; -webkit-appearance:none; border-radius:0;
+    }
+    .fg input:focus, .fg select:focus, .fg textarea:focus { border-color:var(--gold); }
+    .fg select option { background:var(--dark); }
+    .fg textarea { resize:vertical; min-height:95px; }
+    .btn-full { width:100%; padding:1.1rem; margin-top:.4rem; font-size:.82rem; }
+
+    /* ── UBICACION ── */
+    #ubicacion { padding:8rem 4rem; background:var(--black); }
+    .ubicacion-grid { display:grid; grid-template-columns:1fr 1.6fr; gap:4rem; align-items:start; }
+    .contact-item { display:flex; gap:1.4rem; margin-bottom:1.7rem; align-items:flex-start; }
+    .ci-icon { color:var(--gold); font-size:1.1rem; width:22px; flex-shrink:0; margin-top:.15rem; }
+    .ci-text h4 { font-family:var(--serif); color:var(--cream); margin-bottom:.25rem; font-size:.95rem; }
+    .ci-text a, .ci-text p { color:var(--muted); font-size:.88rem; line-height:1.7; transition:color .25s; }
+    .ci-text a:hover { color:var(--gold); }
+    .horarios { margin-top:2.2rem; border-top:1px solid rgba(255,255,255,.07); padding-top:2rem; }
+    .horarios h3 { font-family:var(--serif); color:var(--cream); margin-bottom:1rem; font-size:1rem; }
+    .h-row {
+      display:flex; justify-content:space-between; padding:.5rem 0;
+      border-bottom:1px solid rgba(255,255,255,.045); font-size:.87rem;
+    }
+    .h-day { color:var(--muted); }
+    .h-time { color:var(--gold); }
+    .social-row { display:flex; gap:.9rem; margin-top:2rem; }
+    .social-btn {
+      width:42px; height:42px; border:1px solid rgba(201,162,39,.4);
+      display:flex; align-items:center; justify-content:center;
+      color:var(--gold); font-size:.95rem; transition:all .25s;
+    }
+    .social-btn:hover { background:var(--gold); color:var(--black); }
+    .map-wrap {
+      height:440px; border:1px solid rgba(201,162,39,.18); overflow:hidden; position:relative;
+    }
+    .map-wrap iframe {
+      width:100%; height:100%; border:none;
+      filter:grayscale(40%) sepia(20%) brightness(.85);
+    }
+
+    /* ── FOOTER ── */
+    footer { background:#070100; padding:4rem 4rem 2rem; border-top:1px solid rgba(201,162,39,.12); }
+    .footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr; gap:4rem; max-width:1200px; margin:0 auto; padding-bottom:2.8rem; border-bottom:1px solid rgba(255,255,255,.05); }
+    .footer-logo { font-family:var(--brand); font-size:2rem; color:var(--gold); letter-spacing:1px; display:block; margin-bottom:1rem; }
+    .footer-brand p { color:var(--muted); font-family:var(--elegant); font-size:1rem; line-height:1.85; max-width:280px; }
+    .footer-col h4 { font-family:var(--serif); color:var(--cream); margin-bottom:1.3rem; font-size:.95rem; }
+    .footer-col ul { list-style:none; }
+    .footer-col ul li { margin-bottom:.75rem; }
+    .footer-col ul li a { color:var(--muted); font-size:.87rem; transition:color .25s; }
+    .footer-col ul li a:hover { color:var(--gold); }
+    .footer-bottom {
+      max-width:1200px; margin:0 auto; padding-top:1.8rem;
+      display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:.8rem;
+    }
+    .footer-bottom p { color:var(--muted); font-size:.77rem; }
+    .footer-bottom span { color:var(--gold); }
+
+    /* ── LIGHTBOX ── */
+    .lightbox { display:none; position:fixed; inset:0; background:rgba(0,0,0,.95); z-index:9999; align-items:center; justify-content:center; }
+    .lightbox.on { display:flex; }
+    .lightbox img { max-width:92vw; max-height:92vh; object-fit:contain; }
+    .lb-close { position:absolute; top:1.5rem; right:2rem; background:none; border:none; color:#fff; font-size:2.2rem; cursor:pointer; line-height:1; }
+
+    /* ── TOAST ── */
+    .toast {
+      position:fixed; bottom:2rem; right:2rem; background:var(--wine);
+      color:#fff; padding:1rem 2rem; font-size:.88rem; z-index:9999;
+      transform:translateX(160%); transition:transform .4s;
+    }
+    .toast.on { transform:translateX(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width:1024px) {
+      #nav { padding:1.4rem 2rem; }
+      #nav.solid { padding:.9rem 2rem; }
+      #nosotros,#menu,#galeria,#reservas,#ubicacion { padding:5.5rem 2rem; }
+      footer { padding:3rem 2rem 1.5rem; }
+      .about-grid,.reservas-grid,.ubicacion-grid,.footer-grid { grid-template-columns:1fr; gap:3rem; }
+      .about-images { height:360px; }
+      .gallery-grid { grid-template-columns:repeat(2,1fr); }
+      .menu-cat.on { grid-template-columns:1fr; }
+    }
+    @media (max-width:768px) {
+      .nav-links { display:none; }
+      .hamburger { display:flex; }
+      .nav-links.open {
+        display:flex; flex-direction:column; position:fixed; inset:0;
+        background:rgba(13,5,1,.98); align-items:center;
+        justify-content:center; gap:2.5rem; z-index:998;
+      }
+      .nav-links.open a { font-size:1.4rem; }
+      .form-row { grid-template-columns:1fr; }
+      .gallery-grid { grid-template-columns:1fr; }
+      .footer-grid { grid-template-columns:1fr; }
+      .footer-bottom { flex-direction:column; text-align:center; }
+      .hero-title { font-size:clamp(3.5rem,15vw,5rem); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════ NAVBAR ═══════════════ -->
+<nav id="nav">
+  <a href="#hero" class="nav-logo">
+    <img src="imgs/logo.png" alt="La Querencia">
+    <span>La Querencia</span>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#nosotros" onclick="closeMenu()">Nosotros</a></li>
+    <li><a href="#menu"     onclick="closeMenu()">Menú</a></li>
+    <li><a href="#galeria"  onclick="closeMenu()">Galería</a></li>
+    <li><a href="#reservas" onclick="closeMenu()">Reservas</a></li>
+    <li><a href="#ubicacion" onclick="closeMenu()">Ubicación</a></li>
+    <li><a href="#reservas" class="nav-cta" onclick="closeMenu()">Reservar Mesa</a></li>
+  </ul>
+  <button class="hamburger" id="burger" onclick="toggleMenu()" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section id="hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-inner">
+    <div class="hero-logo-wrap">
+      <img src="imgs/logo.png" alt="La Querencia" class="hero-logo" onerror="this.parentElement.remove()">
+    </div>
+    <span class="hero-eyebrow">Cali, Colombia</span>
+    <h1 class="hero-title">La Querencia</h1>
+    <p class="hero-sub">Parrilla Argentina · Desde 1960</p>
+    <div class="hero-btns">
+      <a href="#reservas" class="btn-gold">Reservar Mesa</a>
+      <a href="#menu"     class="btn-outline">Ver Menú</a>
+    </div>
+  </div>
+  <div class="hero-scroll"><i class="fa-solid fa-chevron-down"></i><span>Descubrir</span></div>
+</section>
+
+<!-- ═══════════════ NOSOTROS ═══════════════ -->
+<section id="nosotros">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-images fi">
+        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&w=900&q=80" alt="Interior La Querencia" class="about-img-main">
+        <img src="https://images.unsplash.com/photo-1558030006-450675393462?ixlib=rb-4.0.3&w=600&q=80" alt="Parrilla" class="about-img-secondary">
+        <div class="about-badge">
+          <div class="about-badge-num">Desde</div>
+          <div class="about-badge-lbl">1960</div>
+        </div>
+      </div>
+      <div class="fi d2">
+        <span class="section-tag">Nuestra Historia</span>
+        <h2 class="section-title">El lugar donde<br>perteneces</h2>
+        <div class="divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
+        <p class="about-text"><em>Querencia</em> es una palabra del alma argentina: el lugar al que uno regresa porque siente que pertenece. Aquí, en el corazón de Cali, traemos lo más auténtico de la tradición parrillera del Río de la Plata.</p>
+        <p class="about-text">Nuestros cortes son seleccionados con rigor, madurados en cámara y cocinados a fuego lento sobre leña y carbón. Cada plato es un homenaje a la cultura gaucha que ha hecho de la parrilla una ceremonia.</p>
+        <div class="features">
+          <div class="feature"><i class="fa-solid fa-fire"></i><div><h4>Parrilla a Leña</h4><p>Técnica tradicional con leños seleccionados</p></div></div>
+          <div class="feature"><i class="fa-solid fa-cow"></i><div><h4>Cortes Premium</h4><p>Carnes maduradas de la más alta calidad</p></div></div>
+          <div class="feature"><i class="fa-solid fa-wine-glass"></i><div><h4>Vinos Argentinos</h4><p>Selección de Malbec y Torrontés de Mendoza</p></div></div>
+          <div class="feature"><i class="fa-solid fa-users"></i><div><h4>Eventos Privados</h4><p>Salón para celebraciones especiales</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ MENU ═══════════════ -->
+<section id="menu">
+  <div class="menu-watermark">Menú</div>
+  <div class="container">
+    <div class="section-header fi" style="text-align:center;margin-bottom:3.5rem;">
+      <span class="section-tag">Nuestra Carta</span>
+      <h2 class="section-title">El Menú</h2>
+      <div class="divider" style="margin:1.6rem auto;"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
+      <p class="section-desc" style="max-width:580px;margin:0 auto;">Seleccionamos los mejores cortes de la gastronomía argentina para llevarte un viaje de sabores.</p>
+    </div>
+
+    <div class="menu-tabs">
+      <button class="tab on"  data-cat="parrilla">Parrilla</button>
+      <button class="tab"     data-cat="entradas">Entradas</button>
+      <button class="tab"     data-cat="acomp">Acompañamientos</button>
+      <button class="tab"     data-cat="postres">Postres</button>
+      <button class="tab"     data-cat="bebidas">Vinos &amp; Bebidas</button>
+    </div>
+
+    <div id="parrilla" class="menu-cat on">
+      <div class="menu-item"><div><h3>Bife de Chorizo</h3><p>Corte clásico argentino, 350g a la parrilla con chimichurri de la casa.</p></div><span class="menu-price">$85.000</span></div>
+      <div class="menu-item"><div><h3>Lomo al Trapo</h3><p>Lomo envuelto en sal y trapo, cocción lenta sobre las brasas.</p></div><span class="menu-price">$95.000</span></div>
+      <div class="menu-item"><div><h3>Entraña</h3><p>Corte tradicional con textura única. Ideal para los amantes del sabor intenso.</p></div><span class="menu-price">$72.000</span></div>
+      <div class="menu-item"><div><h3>Asado de Tira</h3><p>Costillas cortas con marmoleo perfecto. Cocción lenta para una experiencia sin igual.</p></div><span class="menu-price">$78.000</span></div>
+      <div class="menu-item"><div><h3>Ojo de Bife</h3><p>Ribeye argentino, abundante marmoleo y sabor profundo. El rey de la parrilla.</p></div><span class="menu-price">$105.000</span></div>
+      <div class="menu-item"><div><h3>Parrillada Completa</h3><p>Morcilla, chorizo, mollejas, riñones, vacío y entraña. Para 2 personas.</p></div><span class="menu-price">$180.000</span></div>
+    </div>
+
+    <div id="entradas" class="menu-cat">
+      <div class="menu-item"><div><h3>Empanadas Criollas</h3><p>Masa artesanal rellena de carne especiada con cebolla y huevo. Porción 4 unidades.</p></div><span class="menu-price">$28.000</span></div>
+      <div class="menu-item"><div><h3>Mollejas a la Plancha</h3><p>Mollejas de ternera con limón, ajo y perejil. Crujientes por fuera, suaves por dentro.</p></div><span class="menu-price">$38.000</span></div>
+      <div class="menu-item"><div><h3>Chorizo Criollo</h3><p>Chorizo artesanal de elaboración propia, con pan de campo y chimichurri.</p></div><span class="menu-price">$25.000</span></div>
+      <div class="menu-item"><div><h3>Provoleta</h3><p>Queso provolone a la parrilla con orégano y aceite de oliva. Un clásico.</p></div><span class="menu-price">$32.000</span></div>
+    </div>
+
+    <div id="acomp" class="menu-cat">
+      <div class="menu-item"><div><h3>Papas Rústicas</h3><p>Papas al horno con piel, romero, ajo y aceite de oliva.</p></div><span class="menu-price">$18.000</span></div>
+      <div class="menu-item"><div><h3>Ensalada Criolla</h3><p>Tomate, cebolla, pimientos y cilantro con vinagreta de la casa.</p></div><span class="menu-price">$15.000</span></div>
+      <div class="menu-item"><div><h3>Chimichurri &amp; Pan</h3><p>Pan de campo artesanal con chimichurri rojo y verde de preparación propia.</p></div><span class="menu-price">$12.000</span></div>
+      <div class="menu-item"><div><h3>Arroz Meloso</h3><p>Arroz cremoso con mantequilla, parmesano y hierbas frescas.</p></div><span class="menu-price">$16.000</span></div>
+    </div>
+
+    <div id="postres" class="menu-cat">
+      <div class="menu-item"><div><h3>Dulce de Leche Brûlée</h3><p>Crème brûlée con dulce de leche artesanal y capa de azúcar caramelizada.</p></div><span class="menu-price">$22.000</span></div>
+      <div class="menu-item"><div><h3>Flan con Dulce de Leche</h3><p>Flan casero bañado en dulce de leche y crema chantilly.</p></div><span class="menu-price">$18.000</span></div>
+      <div class="menu-item"><div><h3>Alfajor Casero</h3><p>Alfajor gigante de maicena con dulce de leche, bañado en chocolate negro.</p></div><span class="menu-price">$20.000</span></div>
+      <div class="menu-item"><div><h3>Helado Artesanal</h3><p>Dos bochas de dulce de leche o frambuesa con coulis de frutos rojos.</p></div><span class="menu-price">$16.000</span></div>
+    </div>
+
+    <div id="bebidas" class="menu-cat">
+      <div class="menu-item"><div><h3>Malbec Mendoza</h3><p>Copa de Malbec seleccionado de Luján de Cuyo, notas de frutas rojas y especias.</p></div><span class="menu-price">$22.000</span></div>
+      <div class="menu-item"><div><h3>Torrontés Salta</h3><p>Vino blanco aromático de los Valles Calchaquíes, fresco y frutal.</p></div><span class="menu-price">$20.000</span></div>
+      <div class="menu-item"><div><h3>Botella de Vino</h3><p>Selección de nuestra carta de vinos. Consultar disponibilidad.</p></div><span class="menu-price">Desde $85.000</span></div>
+      <div class="menu-item"><div><h3>Fernet con Cola</h3><p>El trago nacional argentino. Fernet Branca con Coca-Cola y hielo.</p></div><span class="menu-price">$18.000</span></div>
+      <div class="menu-item"><div><h3>Mate Cocido</h3><p>Infusión de yerba mate servida caliente, acompañada de facturas.</p></div><span class="menu-price">$12.000</span></div>
+      <div class="menu-item"><div><h3>Bebidas sin Alcohol</h3><p>Agua, gaseosas, jugos naturales de temporada.</p></div><span class="menu-price">Desde $8.000</span></div>
+    </div>
+
+    <p class="menu-note">* Precios sujetos a cambio · IVA incluido · Consultar carta completa en el restaurante</p>
+  </div>
+</section>
+
+<!-- ═══════════════ GALERÍA ═══════════════ -->
+<section id="galeria">
+  <div class="container">
+    <div class="fi" style="text-align:center;margin-bottom:3.5rem;">
+      <span class="section-tag">Galería</span>
+      <h2 class="section-title">Una Experiencia Visual</h2>
+      <div class="divider" style="margin:1.6rem auto;"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
+    </div>
+
+    <div class="gallery-grid fi">
+      <div class="g-item" onclick="openLb(this)">
+        <img src="https://instagram.fclo10-1.fna.fbcdn.net/v/t51.82787-15/626820973_18110635153732954_1049986925017131793_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=108&ig_cache_key=Mjg2OTQ1OTI1MjQ4Mjg4MzQ2MQ%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTQ0MC5zZHIuQzMifQ%3D%3D&_nc_ohc=Rh5JBR1f9-MQ7kNvwGfOoNp&_nc_oc=AdrM6P_geUZ3A84JEfxBykVwODvI5ZO7YLW1s4BGaNLMNOm2eJHy_FRybnyi7acHB0M&_nc_ad=z-m&_nc_cid=1462&_nc_zt=23&_nc_ht=instagram.fclo10-1.fna&_nc_gid=w3B_tcO8gmVfUqI40CJI1w&_nc_ss=7a22e&oh=00_Af47tJmZX307q1VkfdPEPxFYMbAHh4vDWOApKKBJDzs-AQ&oe=69FEAFBD" alt="La Querencia">
+        <div class="g-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+      </div>
+      <div class="g-item" onclick="openLb(this)">
+        <img src="https://instagram.fclo10-1.fna.fbcdn.net/v/t51.82787-15/620962509_18109236424634207_8338352878937468246_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=103&ig_cache_key=Mjg3MjM1NDAwNDI5NTMzMjM0OA%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTQ0MC5zZHIuQzMifQ%3D%3D&_nc_ohc=nsjWh7G0NFYQ7kNvwEk_-ZY&_nc_oc=AdplmwyPysnPkQfbFXWXc1rJdoV2x_54-y42QxNGJq0kpn6IpGWooKO078zGPFbtwwo&_nc_ad=z-m&_nc_cid=1462&_nc_zt=23&_nc_ht=instagram.fclo10-1.fna&_nc_gid=BOpR0XUwUslMriO76_3xcA&_nc_ss=7a22e&oh=00_Af4zUpC1z2_UvTYKGhgCSOG4e2fzWwjkjNuiugwxkH8kyA&oe=69FEAB5A" alt="La Querencia">
+        <div class="g-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+      </div>
+      <div class="g-item" onclick="openLb(this)">
+        <img src="https://instagram.fclo10-1.fna.fbcdn.net/v/t51.82787-15/620878003_18093799780778240_1400453042407770129_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=108&ig_cache_key=Mjg4ODMwNjEzMDUyNzc0MzI3Mw%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTQ0MC5zZHIuQzMifQ%3D%3D&_nc_ohc=SIKX9QO7HqkQ7kNvwHZVF3k&_nc_oc=AdraummT3xq8norQPqw0VYlwB3-EQkHTltD1s7mRfrcKP0VRfSpIJk2Z30Ib_KRpY58&_nc_ad=z-m&_nc_cid=1462&_nc_zt=23&_nc_ht=instagram.fclo10-1.fna&_nc_gid=q81KktVoTH0rq_oJJtxEiQ&_nc_ss=7a22e&oh=00_Af6NYfdbXCvKOTVqTfn5XQpwZ3pPvGKyKUirHavKENeyYw&oe=69FEAEDA" alt="La Querencia">
+        <div class="g-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+      </div>
+      <div class="g-item" onclick="openLb(this)">
+        <img src="https://instagram.fclo10-1.fna.fbcdn.net/v/t51.82787-15/624898158_18181974649370175_2786149773432054358_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=109&ig_cache_key=Mjg4OTAzMTUwNDM5MjA5MjIyMA%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTQ0MC5zZHIuQzMifQ%3D%3D&_nc_ohc=zFwpWg_iClcQ7kNvwFsrbO3&_nc_oc=AdoMiNWVfK7kKx8Mh9938zDjNyHGrGhvO_5UHXIwHbSB-dswl22wzAnlB6T6pz-g7q0&_nc_ad=z-m&_nc_cid=1462&_nc_zt=23&_nc_ht=instagram.fclo10-1.fna&_nc_gid=5FnV1x2ptPIggCTW1g6b6g&_nc_ss=7a22e&oh=00_Af4pE326zlBXPntJBpxCRW7Kb8XrY8ECmK45CqSrfu2gQg&oe=69FECDD6" alt="La Querencia">
+        <div class="g-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+      </div>
+      <div class="g-item" onclick="openLb(this)">
+        <img src="https://instagram.fclo10-1.fna.fbcdn.net/v/t51.82787-15/622496849_18106432759746653_2448242521069171514_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=108&ig_cache_key=Mjg5NzY4NzkwOTQ1NDk4Mjc2MQ%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTQ0MC5zZHIuQzMifQ%3D%3D&_nc_ohc=36UGJsD2pxQQ7kNvwGmjOUo&_nc_oc=AdpPRKQw5hM8nAFVAp-aIa5weHRQXV-kpPlVsUYdgxchBHh6X_-cLa7qIK5rKgW164U&_nc_ad=z-m&_nc_cid=1462&_nc_zt=23&_nc_ht=instagram.fclo10-1.fna&_nc_gid=r1XwhLQ984GZrzR-Wwnkpg&_nc_ss=7a22e&oh=00_Af7bz6vZY4mkB_D0-kVmGgvu8Qzbojlq0CCz6AOg_Fqg_A&oe=69FEA97C" alt="La Querencia">
+        <div class="g-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+      </div>
+      <div class="g-item" onclick="openLb(this)">
+        <img src="https://instagram.fclo10-1.fna.fbcdn.net/v/t51.82787-15/620971903_18081138623006847_2314820185041168147_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=110&ig_cache_key=Mjg5ODQyNDA4MjEzNjQzMjA3Mw%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTQ0MC5zZHIuQzMifQ%3D%3D&_nc_ohc=Zgd0dUyocT8Q7kNvwF_N_NW&_nc_oc=Ado4m8d6gt0CarUOdvFp4T4yreujf3jRv74Klkgl7rXHXeTGMy90khDqKK-7visvb_4&_nc_ad=z-m&_nc_cid=1462&_nc_zt=23&_nc_ht=instagram.fclo10-1.fna&_nc_gid=-FlHhDk6X0c9SCsw_z_B4A&_nc_ss=7a22e&oh=00_Af4ndkSRUV9pQOiq8SxWQA7aBhw-JM0gcsKP0EbuIcRIwQ&oe=69FEAC44" alt="La Querencia">
+        <div class="g-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+      </div>
+      <div class="g-item" onclick="openLb(this)">
+        <img src="https://instagram.fclo10-1.fna.fbcdn.net/v/t51.82787-15/619090898_18031808135770492_9155099928386702709_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=104&ig_cache_key=MjkwMDU4Njk3NDk0MTM1NDkxNg%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTQ0MC5zZHIuQzMifQ%3D%3D&_nc_ohc=yjewwqJ8EioQ7kNvwFt37ZO&_nc_oc=Ado_Euj8nSk8dxTd1hJWaCSjo9GRx5K0SZrPq4cBnPmyU1Vxr2VXhrtxbGwQUr1W47s&_nc_ad=z-m&_nc_cid=1462&_nc_zt=23&_nc_ht=instagram.fclo10-1.fna&_nc_gid=LekQ8FqsNLSzPYgfoAUjXQ&_nc_ss=7a22e&oh=00_Af7rHanOmf0lc4v_egKw0rEUheBiknCEvsY3w-TnRO3Bpw&oe=69FECD1E" alt="La Querencia">
+        <div class="g-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+      </div>
+      <div class="g-item" onclick="openLb(this)">
+        <img src="https://instagram.fclo10-1.fna.fbcdn.net/v/t51.82787-15/621193007_18101685160895121_263165463464538747_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=108&ig_cache_key=MjkxMDc5NzA4NzY4MjM1MTM3Ng%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTgwMC5zZHIuQzMifQ%3D%3D&_nc_ohc=bGwYFa-71p4Q7kNvwHlVzyg&_nc_oc=AdrWkLyLPzmSQvpQDUfG9sXxY1ABPccc7zmFYhG05ObywKcF6f8TBXLitq0PXhwC1tw&_nc_ad=z-m&_nc_cid=1462&_nc_zt=23&_nc_ht=instagram.fclo10-1.fna&_nc_gid=lLoXsFAUHM4iARK-EZLN6Q&_nc_ss=7a22e&oh=00_Af46_wHFXWzO8bj4ey4aTZIGbXMG3LbrPOECvdX5TwvD5g&oe=69FEC06E" alt="La Querencia">
+        <div class="g-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+      </div>
+      <div class="g-item" onclick="openLb(this)">
+        <img src="https://instagram.fclo10-1.fna.fbcdn.net/v/t51.82787-15/622056279_18118127530599641_3183781629052978312_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=110&ig_cache_key=MjkxOTQ2OTYyMjQ0MTkyMDgzOA%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTc5Ny5zZHIuQzMifQ%3D%3D&_nc_ohc=zkVd62hliy8Q7kNvwGj6tV8&_nc_oc=AdqjsgG8Dl8hXmnWkMit5RRxBJPpqp9VdPv6TAGgSY5BDWZWalmg8sYIMbjs__8ZgZE&_nc_ad=z-m&_nc_cid=1462&_nc_zt=23&_nc_ht=instagram.fclo10-1.fna&_nc_gid=BE74l3Qr7xSJf1PAg1qPmQ&_nc_ss=7a22e&oh=00_Af5wbG_IreCA3jxNIjpU6jUNjmm2pBn2koer10uuhC2UzA&oe=69FEBEA4" alt="La Querencia">
+        <div class="g-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+      </div>
+    </div>
+
+    <div class="gallery-cta fi d2">
+      <a href="https://www.instagram.com/la_querencia_restaurante/" target="_blank" rel="noopener" class="btn-outline">
+        <i class="fa-brands fa-instagram"></i>&nbsp;&nbsp;Ver más en Instagram
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ RESERVAS ═══════════════ -->
+<section id="reservas">
+  <div class="container">
+    <div class="reservas-grid">
+      <div class="fi">
+        <span class="section-tag">Reservaciones</span>
+        <h2 class="section-title">Reserva<br>Tu Mesa</h2>
+        <div class="divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
+        <div style="margin-top:2rem;">
+          <div class="detail-item">
+            <div class="detail-icon"><i class="fa-solid fa-phone"></i></div>
+            <div class="detail-text"><h4>Llámanos</h4><p>(602) 4070609<br>315 283 4811</p></div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-icon"><i class="fa-brands fa-whatsapp"></i></div>
+            <div class="detail-text"><h4>WhatsApp</h4><p>+57 315 283 4811<br>Respuesta inmediata</p></div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-icon"><i class="fa-solid fa-champagne-glasses"></i></div>
+            <div class="detail-text"><h4>Eventos Privados</h4><p>Salón privado para cumpleaños,<br>aniversarios y reuniones corporativas.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="res-form fi d2">
+        <h3 class="res-form-title">Haz tu Reserva</h3>
+        <form id="resForm" onsubmit="submitRes(event)">
+          <div class="form-row">
+            <div class="fg"><label>Nombre</label><input type="text" placeholder="Tu nombre" required></div>
+            <div class="fg"><label>Apellido</label><input type="text" placeholder="Tu apellido" required></div>
+          </div>
+          <div class="form-row">
+            <div class="fg"><label>Teléfono</label><input type="tel" placeholder="+57 300 000 0000" required></div>
+            <div class="fg"><label>Email</label><input type="email" placeholder="tu@email.com"></div>
+          </div>
+          <div class="form-row">
+            <div class="fg"><label>Fecha</label><input type="date" id="resDate" required></div>
+            <div class="fg"><label>Hora</label>
+              <select required>
+                <option value="" disabled selected>Seleccionar</option>
+                <option>12:00 PM</option><option>12:30 PM</option><option>1:00 PM</option>
+                <option>1:30 PM</option><option>2:00 PM</option><option>7:00 PM</option>
+                <option>7:30 PM</option><option>8:00 PM</option><option>8:30 PM</option><option>9:00 PM</option>
+              </select>
+            </div>
+          </div>
+          <div class="fg"><label>Número de Personas</label>
+            <select required>
+              <option value="" disabled selected>Seleccionar</option>
+              <option>1 persona</option><option>2 personas</option><option>3 personas</option>
+              <option>4 personas</option><option>5 personas</option><option>6 personas</option>
+              <option>7 – 10 personas</option><option>Más de 10 (evento privado)</option>
+            </select>
+          </div>
+          <div class="fg"><label>Solicitudes Especiales</label><textarea placeholder="Alergias, ocasión especial, preferencia de mesa…"></textarea></div>
+          <button type="submit" class="btn-gold btn-full">Solicitar Reserva</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ UBICACION ═══════════════ -->
+<section id="ubicacion">
+  <div class="container">
+    <div class="fi" style="text-align:center;margin-bottom:3.5rem;">
+      <span class="section-tag">Encuéntranos</span>
+      <h2 class="section-title">Nuestra Ubicación</h2>
+      <div class="divider" style="margin:1.6rem auto;"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
+    </div>
+
+    <div class="ubicacion-grid">
+      <div class="fi">
+        <div class="contact-item"><i class="fa-solid fa-location-dot ci-icon"></i><div class="ci-text"><h4>Dirección</h4><p>Avenida 8 Norte No 23N-79<br>Santa Mónica, Cali, Colombia</p></div></div>
+        <div class="contact-item"><i class="fa-solid fa-phone ci-icon"></i><div class="ci-text"><h4>Teléfono</h4><a href="tel:+576024070609">(602) 4070609</a><br><a href="tel:+573152834811">315 283 4811</a></div></div>
+        <div class="contact-item"><i class="fa-brands fa-whatsapp ci-icon"></i><div class="ci-text"><h4>WhatsApp</h4><a href="https://wa.me/573152834811" target="_blank">+57 315 283 4811</a></div></div>
+        <div class="contact-item"><i class="fa-solid fa-envelope ci-icon"></i><div class="ci-text"><h4>Email</h4><a href="mailto:reservas@laquerencia.co">reservas@laquerencia.co</a></div></div>
+        <div class="contact-item"><i class="fa-brands fa-instagram ci-icon"></i><div class="ci-text"><h4>Instagram</h4><a href="https://www.instagram.com/la_querencia_restaurante/" target="_blank" rel="noopener">@la_querencia_restaurante</a></div></div>
+
+        <div class="horarios">
+          <h3>Horario de Atención</h3>
+          <div class="h-row"><span class="h-day">Lun – Jue</span><span class="h-time">12–4 pm · 6–9:30 pm</span></div>
+          <div class="h-row"><span class="h-day">Vie – Sáb</span><span class="h-time">12–4 pm · 6–10 pm</span></div>
+          <div class="h-row"><span class="h-day">Domingo</span><span class="h-time">12–4 pm</span></div>
+        </div>
+
+        <div class="social-row">
+          <a href="https://www.instagram.com/la_querencia_restaurante/" target="_blank" rel="noopener" class="social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://wa.me/573152834811" target="_blank" class="social-btn" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="#" class="social-btn" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        </div>
+      </div>
+
+      <div class="map-wrap fi d2">
+        <iframe
+          src="https://maps.google.com/maps?q=Avenida+8+Norte+23N-79+Santa+Monica+Cali+Colombia&output=embed&z=16&hl=es"
+          allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          title="La Querencia – Av. 8 Norte 23N-79, Cali">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand fi">
+      <span class="footer-logo">La Querencia</span>
+      <p>Parrilla Argentina en el corazón de Cali. Donde la tradición gaucha se encuentra con el calor colombiano.</p>
+      <div class="social-row" style="margin-top:1.4rem;">
+        <a href="https://www.instagram.com/la_querencia_restaurante/" target="_blank" rel="noopener" class="social-btn"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://wa.me/573152834811" target="_blank" class="social-btn"><i class="fa-brands fa-whatsapp"></i></a>
+        <a href="#" class="social-btn"><i class="fa-brands fa-facebook-f"></i></a>
+      </div>
+    </div>
+    <div class="footer-col fi d2">
+      <h4>Navegación</h4>
+      <ul>
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#menu">Menú</a></li>
+        <li><a href="#galeria">Galería</a></li>
+        <li><a href="#reservas">Reservas</a></li>
+        <li><a href="#ubicacion">Ubicación</a></li>
+      </ul>
+    </div>
+    <div class="footer-col fi d3">
+      <h4>Contacto</h4>
+      <ul>
+        <li><a href="tel:+576024070609">(602) 4070609</a></li>
+        <li><a href="tel:+573152834811">315 283 4811</a></li>
+        <li><a href="https://wa.me/573152834811" target="_blank">WhatsApp</a></li>
+        <li><a href="mailto:reservas@laquerencia.co">reservas@laquerencia.co</a></li>
+        <li><a href="https://www.instagram.com/la_querencia_restaurante/" target="_blank" rel="noopener">Instagram</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2024 La Querencia Restaurante · Cali, Colombia. Todos los derechos reservados.</p>
+    <p>Hecho con <span>♥</span> para los amantes de la buena parrilla</p>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lb" onclick="closeLb()">
+  <button class="lb-close" onclick="closeLb()">×</button>
+  <img id="lbImg" src="" alt="">
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">✓ ¡Reserva recibida! Te contactaremos pronto para confirmar.</div>
+
+<script>
+  // Navbar scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('solid', scrollY > 60));
+
+  // Hero parallax + set min date
+  window.addEventListener('load', () => {
+    document.getElementById('heroBg').classList.add('loaded');
+    document.getElementById('resDate').min = new Date().toISOString().split('T')[0];
+  });
+
+  // Mobile menu
+  function toggleMenu() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+  function closeMenu() {
+    document.getElementById('navLinks').classList.remove('open');
+  }
+
+  // Menu tabs
+  document.querySelectorAll('.tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(b => b.classList.remove('on'));
+      document.querySelectorAll('.menu-cat').forEach(c => c.classList.remove('on'));
+      btn.classList.add('on');
+      document.getElementById(btn.dataset.cat).classList.add('on');
+    });
+  });
+
+  // Lightbox
+  function openLb(el) {
+    document.getElementById('lbImg').src = el.querySelector('img').src;
+    document.getElementById('lb').classList.add('on');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLb() {
+    document.getElementById('lb').classList.remove('on');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+
+  // Reservation form
+  function submitRes(e) {
+    e.preventDefault();
+    const t = document.getElementById('toast');
+    t.classList.add('on');
+    setTimeout(() => t.classList.remove('on'), 4500);
+    e.target.reset();
+  }
+
+  // Scroll animations
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(en => { if (en.isIntersecting) en.target.classList.add('vis'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fi').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
