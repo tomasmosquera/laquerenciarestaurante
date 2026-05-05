@@ -1,13 +1,29 @@
 {
   "nosotros": {
-    "titulo": "El lugar donde perteneces",
+    "titulo": "El lugar donde perteneces!",
     "p1": "Querencia es una palabra del alma argentina: el lugar al que uno regresa porque siente que pertenece. Aquí, en el corazón de Cali, traemos lo más auténtico de la tradición parrillera del Río de la Plata.",
     "p2": "Nuestros cortes son seleccionados con rigor, madurados en cámara y cocinados a fuego lento sobre leña y carbón. Cada plato es un homenaje a la cultura gaucha que ha hecho de la parrilla una ceremonia.",
     "features": [
-      { "icon": "fa-fire",       "titulo": "Parrilla a Leña",   "desc": "Técnica tradicional con leños seleccionados" },
-      { "icon": "fa-cow",        "titulo": "Cortes Premium",    "desc": "Carnes maduradas de la más alta calidad" },
-      { "icon": "fa-wine-glass", "titulo": "Vinos Argentinos",  "desc": "Selección de Malbec y Torrontés de Mendoza" },
-      { "icon": "fa-users",      "titulo": "Eventos Privados",  "desc": "Salón para celebraciones especiales" }
+      {
+        "icon": "fa-fire",
+        "titulo": "Parrilla a Leña",
+        "desc": "Técnica tradicional con leños seleccionados"
+      },
+      {
+        "icon": "fa-cow",
+        "titulo": "Cortes Premium",
+        "desc": "Carnes maduradas de la más alta calidad"
+      },
+      {
+        "icon": "fa-wine-glass",
+        "titulo": "Vinos Argentinos",
+        "desc": "Selección de Malbec y Torrontés de Mendoza"
+      },
+      {
+        "icon": "fa-users",
+        "titulo": "Eventos Privados",
+        "desc": "Salón para celebraciones especiales"
+      }
     ]
   },
   "menu": {
@@ -16,54 +32,150 @@
         "id": "parrilla",
         "nombre": "Parrilla",
         "items": [
-          { "nombre": "Bife de Chorizo",     "desc": "Corte clásico argentino, 350g a la parrilla con chimichurri de la casa.", "precio": "$85.000" },
-          { "nombre": "Lomo al Trapo",       "desc": "Lomo envuelto en sal y trapo, cocción lenta sobre las brasas.",           "precio": "$95.000" },
-          { "nombre": "Entraña",             "desc": "Corte tradicional con textura única. Ideal para los amantes del sabor intenso.", "precio": "$72.000" },
-          { "nombre": "Asado de Tira",       "desc": "Costillas cortas con marmoleo perfecto. Cocción lenta para una experiencia sin igual.", "precio": "$78.000" },
-          { "nombre": "Ojo de Bife",         "desc": "Ribeye argentino, abundante marmoleo y sabor profundo. El rey de la parrilla.", "precio": "$105.000" },
-          { "nombre": "Parrillada Completa", "desc": "Morcilla, chorizo, mollejas, riñones, vacío y entraña. Para 2 personas.", "precio": "$180.000" }
+          {
+            "nombre": "Bife de Chorizo",
+            "desc": "Corte clásico argentino, 350g a la parrilla con chimichurri de la casa.",
+            "precio": "$85.000"
+          },
+          {
+            "nombre": "Lomo al Trapo",
+            "desc": "Lomo envuelto en sal y trapo, cocción lenta sobre las brasas.",
+            "precio": "$95.000"
+          },
+          {
+            "nombre": "Entraña",
+            "desc": "Corte tradicional con textura única. Ideal para los amantes del sabor intenso.",
+            "precio": "$72.000"
+          },
+          {
+            "nombre": "Asado de Tira",
+            "desc": "Costillas cortas con marmoleo perfecto. Cocción lenta para una experiencia sin igual.",
+            "precio": "$78.000"
+          },
+          {
+            "nombre": "Ojo de Bife",
+            "desc": "Ribeye argentino, abundante marmoleo y sabor profundo. El rey de la parrilla.",
+            "precio": "$105.000"
+          },
+          {
+            "nombre": "Parrillada Completa",
+            "desc": "Morcilla, chorizo, mollejas, riñones, vacío y entraña. Para 2 personas.",
+            "precio": "$180.000"
+          }
         ]
       },
       {
         "id": "entradas",
         "nombre": "Entradas",
         "items": [
-          { "nombre": "Empanadas Criollas",    "desc": "Masa artesanal rellena de carne especiada con cebolla y huevo. Porción 4 unidades.", "precio": "$28.000" },
-          { "nombre": "Mollejas a la Plancha", "desc": "Mollejas de ternera con limón, ajo y perejil. Crujientes por fuera, suaves por dentro.", "precio": "$38.000" },
-          { "nombre": "Chorizo Criollo",       "desc": "Chorizo artesanal de elaboración propia, con pan de campo y chimichurri.", "precio": "$25.000" },
-          { "nombre": "Provoleta",             "desc": "Queso provolone a la parrilla con orégano y aceite de oliva. Un clásico.", "precio": "$32.000" }
+          {
+            "nombre": "Empanadas Criollas",
+            "desc": "Masa artesanal rellena de carne especiada con cebolla y huevo. Porción 4 unidades.",
+            "precio": "$28.000"
+          },
+          {
+            "nombre": "Mollejas a la Plancha",
+            "desc": "Mollejas de ternera con limón, ajo y perejil. Crujientes por fuera, suaves por dentro.",
+            "precio": "$38.000"
+          },
+          {
+            "nombre": "Chorizo Criollo",
+            "desc": "Chorizo artesanal de elaboración propia, con pan de campo y chimichurri.",
+            "precio": "$25.000"
+          },
+          {
+            "nombre": "Provoleta",
+            "desc": "Queso provolone a la parrilla con orégano y aceite de oliva. Un clásico.",
+            "precio": "$32.000"
+          }
         ]
       },
       {
         "id": "acomp",
         "nombre": "Acompañamientos",
         "items": [
-          { "nombre": "Papas Rústicas",    "desc": "Papas al horno con piel, romero, ajo y aceite de oliva.", "precio": "$18.000" },
-          { "nombre": "Ensalada Criolla",  "desc": "Tomate, cebolla, pimientos y cilantro con vinagreta de la casa.", "precio": "$15.000" },
-          { "nombre": "Chimichurri & Pan", "desc": "Pan de campo artesanal con chimichurri rojo y verde de preparación propia.", "precio": "$12.000" },
-          { "nombre": "Arroz Meloso",      "desc": "Arroz cremoso con mantequilla, parmesano y hierbas frescas.", "precio": "$16.000" }
+          {
+            "nombre": "Papas Rústicas",
+            "desc": "Papas al horno con piel, romero, ajo y aceite de oliva.",
+            "precio": "$18.000"
+          },
+          {
+            "nombre": "Ensalada Criolla",
+            "desc": "Tomate, cebolla, pimientos y cilantro con vinagreta de la casa.",
+            "precio": "$15.000"
+          },
+          {
+            "nombre": "Chimichurri & Pan",
+            "desc": "Pan de campo artesanal con chimichurri rojo y verde de preparación propia.",
+            "precio": "$12.000"
+          },
+          {
+            "nombre": "Arroz Meloso",
+            "desc": "Arroz cremoso con mantequilla, parmesano y hierbas frescas.",
+            "precio": "$16.000"
+          }
         ]
       },
       {
         "id": "postres",
         "nombre": "Postres",
         "items": [
-          { "nombre": "Dulce de Leche Brûlée",   "desc": "Crème brûlée con dulce de leche artesanal y capa de azúcar caramelizada.", "precio": "$22.000" },
-          { "nombre": "Flan con Dulce de Leche", "desc": "Flan casero bañado en dulce de leche y crema chantilly.", "precio": "$18.000" },
-          { "nombre": "Alfajor Casero",          "desc": "Alfajor gigante de maicena con dulce de leche, bañado en chocolate negro.", "precio": "$20.000" },
-          { "nombre": "Helado Artesanal",        "desc": "Dos bochas de dulce de leche o frambuesa con coulis de frutos rojos.", "precio": "$16.000" }
+          {
+            "nombre": "Dulce de Leche Brûlée",
+            "desc": "Crème brûlée con dulce de leche artesanal y capa de azúcar caramelizada.",
+            "precio": "$22.000"
+          },
+          {
+            "nombre": "Flan con Dulce de Leche",
+            "desc": "Flan casero bañado en dulce de leche y crema chantilly.",
+            "precio": "$18.000"
+          },
+          {
+            "nombre": "Alfajor Casero",
+            "desc": "Alfajor gigante de maicena con dulce de leche, bañado en chocolate negro.",
+            "precio": "$20.000"
+          },
+          {
+            "nombre": "Helado Artesanal",
+            "desc": "Dos bochas de dulce de leche o frambuesa con coulis de frutos rojos.",
+            "precio": "$16.000"
+          }
         ]
       },
       {
         "id": "bebidas",
         "nombre": "Vinos & Bebidas",
         "items": [
-          { "nombre": "Malbec Mendoza",      "desc": "Copa de Malbec seleccionado de Luján de Cuyo, notas de frutas rojas y especias.", "precio": "$22.000" },
-          { "nombre": "Torrontés Salta",     "desc": "Vino blanco aromático de los Valles Calchaquíes, fresco y frutal.", "precio": "$20.000" },
-          { "nombre": "Botella de Vino",     "desc": "Selección de nuestra carta de vinos. Consultar disponibilidad.", "precio": "Desde $85.000" },
-          { "nombre": "Fernet con Cola",     "desc": "El trago nacional argentino. Fernet Branca con Coca-Cola y hielo.", "precio": "$18.000" },
-          { "nombre": "Mate Cocido",         "desc": "Infusión de yerba mate servida caliente, acompañada de facturas.", "precio": "$12.000" },
-          { "nombre": "Bebidas sin Alcohol", "desc": "Agua, gaseosas, jugos naturales de temporada.", "precio": "Desde $8.000" }
+          {
+            "nombre": "Malbec Mendoza",
+            "desc": "Copa de Malbec seleccionado de Luján de Cuyo, notas de frutas rojas y especias.",
+            "precio": "$22.000"
+          },
+          {
+            "nombre": "Torrontés Salta",
+            "desc": "Vino blanco aromático de los Valles Calchaquíes, fresco y frutal.",
+            "precio": "$20.000"
+          },
+          {
+            "nombre": "Botella de Vino",
+            "desc": "Selección de nuestra carta de vinos. Consultar disponibilidad.",
+            "precio": "Desde $85.000"
+          },
+          {
+            "nombre": "Fernet con Cola",
+            "desc": "El trago nacional argentino. Fernet Branca con Coca-Cola y hielo.",
+            "precio": "$18.000"
+          },
+          {
+            "nombre": "Mate Cocido",
+            "desc": "Infusión de yerba mate servida caliente, acompañada de facturas.",
+            "precio": "$12.000"
+          },
+          {
+            "nombre": "Bebidas sin Alcohol",
+            "desc": "Agua, gaseosas, jugos naturales de temporada.",
+            "precio": "Desde $8.000"
+          }
         ]
       }
     ]
@@ -80,10 +192,10 @@
     "https://instagram.fclo10-1.fna.fbcdn.net/v/t51.82787-15/622056279_18118127530599641_3183781629052978312_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=110&ig_cache_key=MjkxOTQ2OTYyMjQ0MTkyMDgzOA%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTc5Ny5zZHIuQzMifQ%3D%3D&_nc_ohc=zkVd62hliy8Q7kNvwGj6tV8&_nc_oc=AdqjsgG8Dl8hXmnWkMit5RRxBJPpqp9VdPv6TAGgSY5BDWZWalmg8sYIMbjs__8ZgZE&_nc_ad=z-m&_nc_cid=1462&_nc_zt=23&_nc_ht=instagram.fclo10-1.fna&_nc_gid=BE74l3Qr7xSJf1PAg1qPmQ&_nc_ss=7a22e&oh=00_Af5wbG_IreCA3jxNIjpU6jUNjmm2pBn2koer10uuhC2UzA&oe=69FEBEA4"
   ],
   "contacto": {
-    "telefono":  "(602) 4070609",
-    "celular":   "315 283 4811",
+    "telefono": "(602) 4070609",
+    "celular": "315 283 4811",
     "direccion": "Av. 8 Norte No 23N-79, Santa Mónica, Cali",
-    "email":     "reservas@laquerencia.co",
+    "email": "reservas@laquerencia.co",
     "instagram": "la_querencia_restaurante"
   }
 }
