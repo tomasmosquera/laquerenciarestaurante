@@ -91,6 +91,22 @@
         ]
       },
       {
+        "id": "cat1778015888657",
+        "nombre": "Pescados y Mariscos",
+        "items": [
+          {
+            "nombre": "Langostinos en salsa de pimientos asados",
+            "desc": "Langostinos en salsa de pimientos asados con aceite de oliva y un poco de limón.",
+            "precio": "$110.000"
+          },
+          {
+            "nombre": "Filete de Salmón",
+            "desc": "Puedes pedirlo con: Salsa de vino blanco, crema y alcaparras /Menier/ Mantequilla y limón.",
+            "precio": "$87.000"
+          }
+        ]
+      },
+      {
         "id": "acomp",
         "nombre": "Acompañamientos",
         "items": [
