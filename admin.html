@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin – La Querencia</title>
+  <link rel="icon" type="image/png" href="imgs/logo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    :root {
+      --bg:#0f0f0f; --surface:#181818; --surface2:#222;
+      --border:#2a2a2a; --gold:#ce5818; --gold-l:#e06a2a;
+      --text:#e8e8e8; --muted:#888; --danger:#c0392b;
+    }
+    html,body { height:100%; }
+    body { background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; font-size:14px; line-height:1.5; }
+
+    /* ── LOGIN ── */
+    #login-wrap { display:flex; align-items:center; justify-content:center; min-height:100vh; padding:2rem; }
+    .login-card { background:var(--surface); border:1px solid var(--border); padding:3rem; width:100%; max-width:380px; }
+    .login-logo { text-align:center; margin-bottom:2rem; }
+    .login-logo img { height:72px; }
+    .login-logo h1 { font-size:1.4rem; color:var(--gold); font-weight:600; margin-top:.75rem; }
+    .login-logo p { font-size:.8rem; color:var(--muted); }
+    .lf-group { margin-bottom:1.2rem; }
+    .lf-group label { display:block; font-size:.72rem; font-weight:600; text-transform:uppercase; letter-spacing:1px; color:var(--muted); margin-bottom:.4rem; }
+    .lf-group input { width:100%; background:var(--surface2); border:1px solid var(--border); color:var(--text); padding:.75rem 1rem; font-size:.9rem; font-family:inherit; outline:none; transition:border-color .2s; }
+    .lf-group input:focus { border-color:var(--gold); }
+    .login-err { color:#e74c3c; font-size:.82rem; margin-bottom:1rem; display:none; padding:.6rem .8rem; background:rgba(231,76,60,.1); border:1px solid rgba(231,76,60,.3); }
+    .btn-primary { width:100%; background:var(--gold); color:#fff; border:none; padding:.85rem; font-size:.85rem; font-weight:600; letter-spacing:1px; text-transform:uppercase; cursor:pointer; font-family:inherit; transition:background .2s; }
+    .btn-primary:hover { background:var(--gold-l); }
+
+    /* ── PANEL ── */
+    #panel { display:none; }
+    .topbar { position:sticky; top:0; z-index:100; background:var(--surface); border-bottom:1px solid var(--border); padding:.85rem 2rem; display:flex; align-items:center; justify-content:space-between; }
+    .topbar .brand { display:flex; align-items:center; gap:.7rem; }
+    .topbar .brand img { height:28px; }
+    .topbar .brand span { font-size:.95rem; font-weight:600; color:var(--gold); }
+    .topbar-actions { display:flex; gap:1rem; align-items:center; }
+    .link-site { color:var(--muted); font-size:.8rem; text-decoration:none; transition:color .2s; }
+    .link-site:hover { color:var(--gold); }
+    .btn-logout { background:none; border:1px solid var(--border); color:var(--muted); padding:.4rem .9rem; cursor:pointer; font-family:inherit; font-size:.78rem; transition:all .2s; }
+    .btn-logout:hover { border-color:var(--gold); color:var(--gold); }
+
+    .panel-tabs { display:flex; border-bottom:1px solid var(--border); background:var(--surface); padding:0 2rem; overflow-x:auto; }
+    .ptab { padding:.9rem 1.3rem; cursor:pointer; font-size:.8rem; font-weight:500; color:var(--muted); border-bottom:2px solid transparent; transition:all .2s; background:none; border-top:none; border-left:none; border-right:none; font-family:inherit; white-space:nowrap; }
+    .ptab.on { color:var(--gold); border-bottom-color:var(--gold); }
+    .ptab:hover { color:var(--text); }
+
+    .panel-body { padding:2rem; max-width:960px; margin:0 auto; }
+    .pane { display:none; }
+    .pane.on { display:block; }
+
+    .pane-title { font-size:1.15rem; font-weight:600; margin-bottom:.3rem; }
+    .pane-desc { color:var(--muted); font-size:.82rem; margin-bottom:2rem; }
+
+    .field-group { margin-bottom:1.3rem; }
+    .field-group label { display:block; font-size:.72rem; font-weight:600; text-transform:uppercase; letter-spacing:1px; color:var(--muted); margin-bottom:.4rem; }
+    .field-group input, .field-group textarea { width:100%; background:var(--surface2); border:1px solid var(--border); color:var(--text); padding:.65rem .9rem; font-size:.88rem; font-family:inherit; outline:none; transition:border-color .2s; resize:vertical; }
+    .field-group input:focus, .field-group textarea:focus { border-color:var(--gold); }
+    .field-group textarea { min-height:85px; }
+
+    .card { background:var(--surface); border:1px solid var(--border); padding:1.4rem; margin-bottom:1.2rem; }
+    .card-title { font-size:.85rem; font-weight:600; margin-bottom:1rem; color:var(--text); }
+
+    .btn-save { background:var(--gold); color:#fff; border:none; padding:.7rem 1.8rem; font-size:.8rem; font-weight:600; letter-spacing:1px; text-transform:uppercase; cursor:pointer; font-family:inherit; transition:background .2s; }
+    .btn-save:hover { background:var(--gold-l); }
+    .btn-ghost { background:#2a2a2a; color:var(--text); border:none; padding:.7rem 1.4rem; font-size:.8rem; font-weight:500; cursor:pointer; font-family:inherit; transition:background .2s; }
+    .btn-ghost:hover { background:#333; }
+
+    .save-row { display:flex; gap:.8rem; align-items:center; margin-top:2rem; padding-top:1.5rem; border-top:1px solid var(--border); flex-wrap:wrap; }
+    .save-ok { color:#27ae60; font-size:.82rem; display:none; }
+    .save-ok.on { display:flex; align-items:center; gap:.3rem; }
+
+    /* FEATURES */
+    .features-grid { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+
+    /* MENU */
+    .mc-tabs { display:flex; flex-wrap:wrap; gap:.45rem; margin-bottom:1.4rem; }
+    .mctab { padding:.45rem .9rem; background:var(--surface2); border:1px solid var(--border); color:var(--muted); cursor:pointer; font-size:.76rem; font-weight:500; font-family:inherit; transition:all .2s; }
+    .mctab.on { background:var(--gold); color:#fff; border-color:var(--gold); }
+    .mctab:hover:not(.on) { border-color:var(--gold); color:var(--text); }
+
+    .items-header { display:grid; grid-template-columns:1fr 2fr 110px 36px; gap:.5rem; padding:.4rem .7rem; font-size:.68rem; font-weight:600; text-transform:uppercase; letter-spacing:.8px; color:var(--muted); border-bottom:2px solid var(--border); }
+    .item-row { display:grid; grid-template-columns:1fr 2fr 110px 36px; gap:.5rem; align-items:center; padding:.55rem .7rem; border-bottom:1px solid var(--border); }
+    .item-row:last-child { border-bottom:none; }
+    .item-row input { background:#1a1a1a; border:1px solid var(--border); color:var(--text); padding:.42rem .6rem; font-size:.83rem; font-family:inherit; width:100%; outline:none; }
+    .item-row input:focus { border-color:var(--gold); }
+    .btn-del { background:none; border:1px solid #3a1a1a; color:var(--danger); width:32px; height:32px; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:all .2s; font-size:.8rem; }
+    .btn-del:hover { background:var(--danger); color:#fff; border-color:var(--danger); }
+
+    .add-row { display:grid; grid-template-columns:1fr 2fr 110px auto; gap:.5rem; align-items:start; padding:.7rem; background:#161616; border-top:2px solid var(--border); margin-top:.3rem; }
+    .add-row input { background:var(--surface2); border:1px solid var(--border); color:var(--text); padding:.42rem .6rem; font-size:.83rem; font-family:inherit; width:100%; outline:none; }
+    .add-row input:focus { border-color:var(--gold); }
+    .btn-add { background:var(--gold); color:#fff; border:none; padding:.42rem .9rem; font-size:.76rem; font-weight:600; cursor:pointer; font-family:inherit; height:32px; display:flex; align-items:center; gap:.3rem; transition:background .2s; white-space:nowrap; }
+    .btn-add:hover { background:var(--gold-l); }
+
+    .cat-rename { display:flex; gap:.6rem; align-items:center; margin-bottom:1rem; }
+    .cat-rename label { font-size:.72rem; color:var(--muted); white-space:nowrap; font-weight:600; text-transform:uppercase; letter-spacing:.8px; }
+    .cat-rename input { flex:1; background:var(--surface2); border:1px solid var(--border); color:var(--text); padding:.45rem .8rem; font-size:.88rem; font-family:inherit; outline:none; }
+    .cat-rename input:focus { border-color:var(--gold); }
+    .btn-del-cat { background:none; border:1px solid #3a1a1a; color:var(--danger); padding:.4rem .9rem; cursor:pointer; font-family:inherit; font-size:.76rem; display:inline-flex; align-items:center; gap:.35rem; transition:all .2s; }
+    .btn-del-cat:hover { background:var(--danger); color:#fff; border-color:var(--danger); }
+
+    /* GALLERY */
+    .ga-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:.9rem; margin-bottom:1.5rem; }
+    .ga-slot { aspect-ratio:1; background:#1a1a1a; border:2px dashed var(--border); position:relative; overflow:hidden; cursor:pointer; transition:border-color .2s; }
+    .ga-slot:hover, .ga-slot.sel { border-color:var(--gold); border-style:solid; }
+    .ga-slot img { width:100%; height:100%; object-fit:cover; display:block; }
+    .ga-overlay { position:absolute; inset:0; background:rgba(0,0,0,.6); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.4rem; opacity:0; transition:opacity .2s; }
+    .ga-slot:hover .ga-overlay, .ga-slot.empty .ga-overlay, .ga-slot.sel .ga-overlay { opacity:1; }
+    .ga-overlay i { color:var(--gold); font-size:1.4rem; }
+    .ga-overlay span { font-size:.68rem; color:#ccc; letter-spacing:.5px; text-align:center; padding:0 .5rem; }
+    .ga-num { position:absolute; top:.35rem; left:.4rem; background:rgba(0,0,0,.75); color:#aaa; font-size:.65rem; font-weight:700; padding:.1rem .35rem; pointer-events:none; }
+    .ga-del { position:absolute; top:.35rem; right:.35rem; background:rgba(192,57,43,.9); color:#fff; border:none; width:22px; height:22px; cursor:pointer; font-size:.7rem; display:none; align-items:center; justify-content:center; transition:background .2s; }
+    .ga-slot:not(.empty):hover .ga-del { display:flex; }
+    .ga-del:hover { background:var(--danger); }
+
+    .ga-sel-label { font-size:.8rem; color:var(--gold); margin-bottom:.7rem; min-height:1.2em; }
+    .ga-url-row { display:flex; gap:.5rem; }
+    .ga-url-row input { flex:1; background:var(--surface2); border:1px solid var(--border); color:var(--text); padding:.6rem .9rem; font-size:.84rem; font-family:inherit; outline:none; }
+    .ga-url-row input:focus { border-color:var(--gold); }
+    .ga-url-row button { background:var(--gold); color:#fff; border:none; padding:.6rem 1.2rem; font-size:.78rem; font-weight:600; cursor:pointer; font-family:inherit; transition:background .2s; }
+    .ga-url-row button:hover { background:var(--gold-l); }
+    input[type="file"] { display:none; }
+
+    /* CONTACTO */
+    .ct-grid { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+
+    /* RESPONSIVE */
+    @media(max-width:640px) {
+      .panel-body { padding:1rem; }
+      .features-grid, .ct-grid { grid-template-columns:1fr; }
+      .items-header, .item-row, .add-row { grid-template-columns:1fr 1fr 80px 36px; }
+      .ga-grid { grid-template-columns:repeat(2,1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ LOGIN ═══ -->
+<div id="login-wrap">
+  <div class="login-card">
+    <div class="login-logo">
+      <img src="imgs/logo.png" alt="La Querencia">
+      <h1>La Querencia</h1>
+      <p>Panel de Administración</p>
+    </div>
+    <div class="login-err" id="loginErr"><i class="fa-solid fa-triangle-exclamation"></i> Usuario o contraseña incorrectos.</div>
+    <div class="lf-group">
+      <label>Usuario</label>
+      <input type="text" id="loginUser" placeholder="admin" autocomplete="username">
+    </div>
+    <div class="lf-group">
+      <label>Contraseña</label>
+      <input type="password" id="loginPass" placeholder="••••••" autocomplete="current-password">
+    </div>
+    <button class="btn-primary" onclick="doLogin()">Ingresar</button>
+  </div>
+</div>
+
+<!-- ═══ PANEL ═══ -->
+<div id="panel">
+  <div class="topbar">
+    <div class="brand">
+      <img src="imgs/logo.png" alt="">
+      <span>La Querencia · Admin</span>
+    </div>
+    <div class="topbar-actions">
+      <a href="index.html" target="_blank" class="link-site"><i class="fa-solid fa-arrow-up-right-from-square"></i> Ver sitio</a>
+      <button class="btn-logout" onclick="doLogout()"><i class="fa-solid fa-right-from-bracket"></i> Salir</button>
+    </div>
+  </div>
+
+  <div class="panel-tabs">
+    <button class="ptab on" data-pane="historia" onclick="showPane('historia')"><i class="fa-solid fa-book-open"></i> Historia</button>
+    <button class="ptab" data-pane="menu" onclick="showPane('menu')"><i class="fa-solid fa-utensils"></i> Menú</button>
+    <button class="ptab" data-pane="galeria" onclick="showPane('galeria')"><i class="fa-solid fa-images"></i> Galería</button>
+    <button class="ptab" data-pane="contacto" onclick="showPane('contacto')"><i class="fa-solid fa-address-card"></i> Contacto</button>
+  </div>
+
+  <div class="panel-body">
+
+    <!-- HISTORIA -->
+    <div class="pane on" id="pane-historia">
+      <div class="pane-title">Nuestra Historia</div>
+      <div class="pane-desc">Edita el título, los párrafos y las 4 características de la sección "Nosotros".</div>
+      <div class="field-group">
+        <label>Título de sección</label>
+        <input type="text" id="ns-titulo" placeholder="El lugar donde perteneces">
+      </div>
+      <div class="field-group">
+        <label>Párrafo 1</label>
+        <textarea id="ns-p1" rows="4"></textarea>
+      </div>
+      <div class="field-group">
+        <label>Párrafo 2</label>
+        <textarea id="ns-p2" rows="4"></textarea>
+      </div>
+      <div class="card">
+        <div class="card-title">Características (4 bloques)</div>
+        <div class="features-grid" id="features-editor"></div>
+      </div>
+      <div class="save-row">
+        <button class="btn-save" onclick="saveHistoria()">Guardar Historia</button>
+        <span class="save-ok" id="ok-historia"><i class="fa-solid fa-check"></i> Guardado</span>
+      </div>
+    </div>
+
+    <!-- MENÚ -->
+    <div class="pane" id="pane-menu">
+      <div class="pane-title">El Menú</div>
+      <div class="pane-desc">Gestiona categorías e ítems. Los cambios se aplican al guardar.</div>
+      <div class="mc-tabs" id="mc-tabs"></div>
+      <div id="mc-body"></div>
+      <div class="save-row">
+        <button class="btn-save" onclick="saveMenu()">Guardar Menú</button>
+        <button class="btn-ghost" onclick="addCategory()"><i class="fa-solid fa-plus"></i> Nueva categoría</button>
+        <span class="save-ok" id="ok-menu"><i class="fa-solid fa-check"></i> Guardado</span>
+      </div>
+    </div>
+
+    <!-- GALERÍA -->
+    <div class="pane" id="pane-galeria">
+      <div class="pane-title">Galería de Imágenes</div>
+      <div class="pane-desc">Haz clic en una ranura para subir una foto desde tu dispositivo (se comprime automáticamente). También puedes asignar una URL.</div>
+      <div class="ga-grid" id="ga-grid"></div>
+      <div class="card">
+        <div class="card-title">Cambiar imagen por URL</div>
+        <div class="ga-sel-label" id="ga-sel-label">Selecciona una ranura arriba para asignarle una URL</div>
+        <div class="ga-url-row">
+          <input type="text" id="ga-url-inp" placeholder="https://...">
+          <button onclick="applyGaUrl()">Aplicar</button>
+        </div>
+      </div>
+      <input type="file" id="ga-file" accept="image/*" onchange="handleGaFile(this)">
+      <div class="save-row">
+        <button class="btn-save" onclick="saveGaleria()">Guardar Galería</button>
+        <span class="save-ok" id="ok-galeria"><i class="fa-solid fa-check"></i> Guardado</span>
+      </div>
+    </div>
+
+    <!-- CONTACTO -->
+    <div class="pane" id="pane-contacto">
+      <div class="pane-title">Datos de Contacto</div>
+      <div class="pane-desc">Actualiza la información que aparece en la sección Ubicación del sitio.</div>
+      <div class="ct-grid">
+        <div class="field-group">
+          <label>Teléfono Fijo</label>
+          <input type="text" id="ct-tel" placeholder="(602) 4070609">
+        </div>
+        <div class="field-group">
+          <label>Celular / WhatsApp</label>
+          <input type="text" id="ct-cel" placeholder="315 283 4811">
+        </div>
+        <div class="field-group">
+          <label>Dirección</label>
+          <input type="text" id="ct-dir" placeholder="Av. 8 Norte No 23N-79, Santa Mónica, Cali">
+        </div>
+        <div class="field-group">
+          <label>Email</label>
+          <input type="email" id="ct-email" placeholder="reservas@laquerencia.co">
+        </div>
+        <div class="field-group">
+          <label>Usuario de Instagram (sin @)</label>
+          <input type="text" id="ct-ig" placeholder="la_querencia_restaurante">
+        </div>
+      </div>
+      <div class="save-row">
+        <button class="btn-save" onclick="saveContacto()">Guardar Contacto</button>
+        <span class="save-ok" id="ok-contacto"><i class="fa-solid fa-check"></i> Guardado</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const DEFAULTS = {
+  nosotros: {
+    titulo: "El lugar donde perteneces",
+    p1: "Querencia es una palabra del alma argentina: el lugar al que uno regresa porque siente que pertenece. Aquí, en el corazón de Cali, traemos lo más auténtico de la tradición parrillera del Río de la Plata.",
+    p2: "Nuestros cortes son seleccionados con rigor, madurados en cámara y cocinados a fuego lento sobre leña y carbón. Cada plato es un homenaje a la cultura gaucha que ha hecho de la parrilla una ceremonia.",
+    features: [
+      {icon:"fa-fire",      titulo:"Parrilla a Leña",   desc:"Técnica tradicional con leños seleccionados"},
+      {icon:"fa-cow",       titulo:"Cortes Premium",    desc:"Carnes maduradas de la más alta calidad"},
+      {icon:"fa-wine-glass",titulo:"Vinos Argentinos",  desc:"Selección de Malbec y Torrontés de Mendoza"},
+      {icon:"fa-users",     titulo:"Eventos Privados",  desc:"Salón para celebraciones especiales"}
+    ]
+  },
+  menu: {
+    categorias: [
+      {id:"parrilla", nombre:"Parrilla", items:[
+        {nombre:"Bife de Chorizo",    desc:"Corte clásico argentino, 350g a la parrilla con chimichurri de la casa.", precio:"$85.000"},
+        {nombre:"Lomo al Trapo",      desc:"Lomo envuelto en sal y trapo, cocción lenta sobre las brasas.",           precio:"$95.000"},
+        {nombre:"Entraña",            desc:"Corte tradicional con textura única. Ideal para los amantes del sabor intenso.", precio:"$72.000"},
+        {nombre:"Asado de Tira",      desc:"Costillas cortas con marmoleo perfecto. Cocción lenta para una experiencia sin igual.", precio:"$78.000"},
+        {nombre:"Ojo de Bife",        desc:"Ribeye argentino, abundante marmoleo y sabor profundo. El rey de la parrilla.",  precio:"$105.000"},
+        {nombre:"Parrillada Completa",desc:"Morcilla, chorizo, mollejas, riñones, vacío y entraña. Para 2 personas.",       precio:"$180.000"}
+      ]},
+      {id:"entradas", nombre:"Entradas", items:[
+        {nombre:"Empanadas Criollas",    desc:"Masa artesanal rellena de carne especiada con cebolla y huevo. Porción 4 unidades.", precio:"$28.000"},
+        {nombre:"Mollejas a la Plancha", desc:"Mollejas de ternera con limón, ajo y perejil. Crujientes por fuera, suaves por dentro.", precio:"$38.000"},
+        {nombre:"Chorizo Criollo",       desc:"Chorizo artesanal de elaboración propia, con pan de campo y chimichurri.",            precio:"$25.000"},
+        {nombre:"Provoleta",             desc:"Queso provolone a la parrilla con orégano y aceite de oliva. Un clásico.",            precio:"$32.000"}
+      ]},
+      {id:"acomp", nombre:"Acompañamientos", items:[
+        {nombre:"Papas Rústicas",   desc:"Papas al horno con piel, romero, ajo y aceite de oliva.",               precio:"$18.000"},
+        {nombre:"Ensalada Criolla", desc:"Tomate, cebolla, pimientos y cilantro con vinagreta de la casa.",        precio:"$15.000"},
+        {nombre:"Chimichurri & Pan",desc:"Pan de campo artesanal con chimichurri rojo y verde de preparación propia.", precio:"$12.000"},
+        {nombre:"Arroz Meloso",     desc:"Arroz cremoso con mantequilla, parmesano y hierbas frescas.",            precio:"$16.000"}
+      ]},
+      {id:"postres", nombre:"Postres", items:[
+        {nombre:"Dulce de Leche Brûlée",  desc:"Crème brûlée con dulce de leche artesanal y capa de azúcar caramelizada.", precio:"$22.000"},
+        {nombre:"Flan con Dulce de Leche",desc:"Flan casero bañado en dulce de leche y crema chantilly.",                  precio:"$18.000"},
+        {nombre:"Alfajor Casero",         desc:"Alfajor gigante de maicena con dulce de leche, bañado en chocolate negro.", precio:"$20.000"},
+        {nombre:"Helado Artesanal",       desc:"Dos bochas de dulce de leche o frambuesa con coulis de frutos rojos.",      precio:"$16.000"}
+      ]},
+      {id:"bebidas", nombre:"Vinos & Bebidas", items:[
+        {nombre:"Malbec Mendoza",       desc:"Copa de Malbec seleccionado de Luján de Cuyo, notas de frutas rojas y especias.", precio:"$22.000"},
+        {nombre:"Torrontés Salta",      desc:"Vino blanco aromático de los Valles Calchaquíes, fresco y frutal.",              precio:"$20.000"},
+        {nombre:"Botella de Vino",      desc:"Selección de nuestra carta de vinos. Consultar disponibilidad.",                 precio:"Desde $85.000"},
+        {nombre:"Fernet con Cola",      desc:"El trago nacional argentino. Fernet Branca con Coca-Cola y hielo.",              precio:"$18.000"},
+        {nombre:"Mate Cocido",          desc:"Infusión de yerba mate servida caliente, acompañada de facturas.",               precio:"$12.000"},
+        {nombre:"Bebidas sin Alcohol",  desc:"Agua, gaseosas, jugos naturales de temporada.",                                  precio:"Desde $8.000"}
+      ]}
+    ]
+  },
+  galeria: [
+    "https://instagram.fclo10-1.fna.fbcdn.net/v/t51.82787-15/626820973_18110635153732954_1049986925017131793_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=108&ig_cache_key=Mjg2OTQ1OTI1MjQ4Mjg4MzQ2MQ%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTQ0MC5zZHIuQzMifQ%3D%3D&_nc_ohc=Rh5JBR1f9-MQ7kNvwGfOoNp&_nc_oc=AdrM6P_geUZ3A84JEfxBykVwODvI5ZO7YLW1s4BGaNLMNOm2eJHy_FRybnyi7acHB0M&_nc_ad=z-m&_nc_cid=1462&_nc_zt=23&_nc_ht=instagram.fclo10-1.fna&_nc_gid=w3B_tcO8gmVfUqI40CJI1w&_nc_ss=7a22e&oh=00_Af47tJmZX307q1VkfdPEPxFYMbAHh4vDWOApKKBJDzs-AQ&oe=69FEAFBD",
+    "https://instagram.fclo10-1.fna.fbcdn.net/v/t51.82787-15/620962509_18109236424634207_8338352878937468246_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=103&ig_cache_key=Mjg3MjM1NDAwNDI5NTMzMjM0OA%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTQ0MC5zZHIuQzMifQ%3D%3D&_nc_ohc=nsjWh7G0NFYQ7kNvwEk_-ZY&_nc_oc=AdplmwyPysnPkQfbFXWXc1rJdoV2x_54-y42QxNGJq0kpn6IpGWooKO078zGPFbtwwo&_nc_ad=z-m&_nc_cid=1462&_nc_zt=23&_nc_ht=instagram.fclo10-1.fna&_nc_gid=BOpR0XUwUslMriO76_3xcA&_nc_ss=7a22e&oh=00_Af4zUpC1z2_UvTYKGhgCSOG4e2fzWwjkjNuiugwxkH8kyA&oe=69FEAB5A",
+    "https://instagram.fclo10-1.fna.fbcdn.net/v/t51.82787-15/620878003_18093799780778240_1400453042407770129_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=108&ig_cache_key=Mjg4ODMwNjEzMDUyNzc0MzI3Mw%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTQ0MC5zZHIuQzMifQ%3D%3D&_nc_ohc=SIKX9QO7HqkQ7kNvwHZVF3k&_nc_oc=AdraummT3xq8norQPqw0VYlwB3-EQkHTltD1s7mRfrcKP0VRfSpIJk2Z30Ib_KRpY58&_nc_ad=z-m&_nc_cid=1462&_nc_zt=23&_nc_ht=instagram.fclo10-1.fna&_nc_gid=q81KktVoTH0rq_oJJtxEiQ&_nc_ss=7a22e&oh=00_Af6NYfdbXCvKOTVqTfn5XQpwZ3pPvGKyKUirHavKENeyYw&oe=69FEAEDA",
+    "https://instagram.fclo10-1.fna.fbcdn.net/v/t51.82787-15/624898158_18181974649370175_2786149773432054358_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=109&ig_cache_key=Mjg4OTAzMTUwNDM5MjA5MjIyMA%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTQ0MC5zZHIuQzMifQ%3D%3D&_nc_ohc=zFwpWg_iClcQ7kNvwFsrbO3&_nc_oc=AdoMiNWVfK7kKx8Mh9938zDjNyHGrGhvO_5UHXIwHbSB-dswl22wzAnlB6T6pz-g7q0&_nc_ad=z-m&_nc_cid=1462&_nc_zt=23&_nc_ht=instagram.fclo10-1.fna&_nc_gid=5FnV1x2ptPIggCTW1g6b6g&_nc_ss=7a22e&oh=00_Af4pE326zlBXPntJBpxCRW7Kb8XrY8ECmK45CqSrfu2gQg&oe=69FECDD6",
+    "https://instagram.fclo10-1.fna.fbcdn.net/v/t51.82787-15/622496849_18106432759746653_2448242521069171514_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=108&ig_cache_key=Mjg5NzY4NzkwOTQ1NDk4Mjc2MQ%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTQ0MC5zZHIuQzMifQ%3D%3D&_nc_ohc=36UGJsD2pxQQ7kNvwGmjOUo&_nc_oc=AdpPRKQw5hM8nAFVAp-aIa5weHRQXV-kpPlVsUYdgxchBHh6X_-cLa7qIK5rKgW164U&_nc_ad=z-m&_nc_cid=1462&_nc_zt=23&_nc_ht=instagram.fclo10-1.fna&_nc_gid=r1XwhLQ984GZrzR-Wwnkpg&_nc_ss=7a22e&oh=00_Af7bz6vZY4mkB_D0-kVmGgvu8Qzbojlq0CCz6AOg_Fqg_A&oe=69FEA97C",
+    "https://instagram.fclo10-1.fna.fbcdn.net/v/t51.82787-15/620971903_18081138623006847_2314820185041168147_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=110&ig_cache_key=Mjg5ODQyNDA4MjEzNjQzMjA3Mw%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTQ0MC5zZHIuQzMifQ%3D%3D&_nc_ohc=Zgd0dUyocT8Q7kNvwF_N_NW&_nc_oc=Ado4m8d6gt0CarUOdvFp4T4yreujf3jRv74Klkgl7rXHXeTGMy90khDqKK-7visvb_4&_nc_ad=z-m&_nc_cid=1462&_nc_zt=23&_nc_ht=instagram.fclo10-1.fna&_nc_gid=-FlHhDk6X0c9SCsw_z_B4A&_nc_ss=7a22e&oh=00_Af4ndkSRUV9pQOiq8SxWQA7aBhw-JM0gcsKP0EbuIcRIwQ&oe=69FEAC44",
+    "https://instagram.fclo10-1.fna.fbcdn.net/v/t51.82787-15/619090898_18031808135770492_9155099928386702709_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=104&ig_cache_key=MjkwMDU4Njk3NDk0MTM1NDkxNg%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTQ0MC5zZHIuQzMifQ%3D%3D&_nc_ohc=yjewwqJ8EioQ7kNvwFt37ZO&_nc_oc=Ado_Euj8nSk8dxTd1hJWaCSjo9GRx5K0SZrPq4cBnPmyU1Vxr2VXhrtxbGwQUr1W47s&_nc_ad=z-m&_nc_cid=1462&_nc_zt=23&_nc_ht=instagram.fclo10-1.fna&_nc_gid=LekQ8FqsNLSzPYgfoAUjXQ&_nc_ss=7a22e&oh=00_Af7rHanOmf0lc4v_egKw0rEUheBiknCEvsY3w-TnRO3Bpw&oe=69FECD1E",
+    "https://instagram.fclo10-1.fna.fbcdn.net/v/t51.82787-15/621193007_18101685160895121_263165463464538747_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=108&ig_cache_key=MjkxMDc5NzA4NzY4MjM1MTM3Ng%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTgwMC5zZHIuQzMifQ%3D%3D&_nc_ohc=bGwYFa-71p4Q7kNvwHlVzyg&_nc_oc=AdrWkLyLPzmSQvpQDUfG9sXxY1ABPccc7zmFYhG05ObywKcF6f8TBXLitq0PXhwC1tw&_nc_ad=z-m&_nc_cid=1462&_nc_zt=23&_nc_ht=instagram.fclo10-1.fna&_nc_gid=lLoXsFAUHM4iARK-EZLN6Q&_nc_ss=7a22e&oh=00_Af46_wHFXWzO8bj4ey4aTZIGbXMG3LbrPOECvdX5TwvD5g&oe=69FEC06E",
+    "https://instagram.fclo10-1.fna.fbcdn.net/v/t51.82787-15/622056279_18118127530599641_3183781629052978312_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=110&ig_cache_key=MjkxOTQ2OTYyMjQ0MTkyMDgzOA%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTc5Ny5zZHIuQzMifQ%3D%3D&_nc_ohc=zkVd62hliy8Q7kNvwGj6tV8&_nc_oc=AdqjsgG8Dl8hXmnWkMit5RRxBJPpqp9VdPv6TAGgSY5BDWZWalmg8sYIMbjs__8ZgZE&_nc_ad=z-m&_nc_cid=1462&_nc_zt=23&_nc_ht=instagram.fclo10-1.fna&_nc_gid=BE74l3Qr7xSJf1PAg1qPmQ&_nc_ss=7a22e&oh=00_Af5wbG_IreCA3jxNIjpU6jUNjmm2pBn2koer10uuhC2UzA&oe=69FEBEA4"
+  ],
+  contacto: {
+    telefono:  "(602) 4070609",
+    celular:   "315 283 4811",
+    direccion: "Av. 8 Norte No 23N-79, Santa Mónica, Cali",
+    email:     "reservas@laquerencia.co",
+    instagram: "la_querencia_restaurante"
+  }
+};
+
+// ── STATE ──
+let D = JSON.parse(JSON.stringify(DEFAULTS));
+let gaSelected = null;
+let activeCat = 0;
+
+// ── AUTH ──
+function doLogin() {
+  const u = document.getElementById('loginUser').value.trim();
+  const p = document.getElementById('loginPass').value;
+  const err = document.getElementById('loginErr');
+  if (u === 'admin' && p === 'admin') {
+    sessionStorage.setItem('lq_admin', '1');
+    err.style.display = 'none';
+    showPanel();
+  } else {
+    err.style.display = 'flex';
+  }
+}
+document.getElementById('loginUser').addEventListener('keydown', e => e.key === 'Enter' && document.getElementById('loginPass').focus());
+document.getElementById('loginPass').addEventListener('keydown', e => e.key === 'Enter' && doLogin());
+
+function doLogout() {
+  sessionStorage.removeItem('lq_admin');
+  document.getElementById('panel').style.display = 'none';
+  document.getElementById('login-wrap').style.display = 'flex';
+}
+
+// ── PANEL INIT ──
+function showPanel() {
+  document.getElementById('login-wrap').style.display = 'none';
+  document.getElementById('panel').style.display = 'block';
+  const saved = localStorage.getItem('lq_content');
+  if (saved) { try { D = JSON.parse(saved); } catch(e) {} }
+  renderHistoria();
+  renderMenuTabs();
+  renderGaleria();
+  renderContacto();
+}
+
+function showPane(name) {
+  document.querySelectorAll('.pane').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.ptab').forEach(t => t.classList.remove('on'));
+  document.getElementById('pane-' + name).classList.add('on');
+  document.querySelector('[data-pane="' + name + '"]').classList.add('on');
+}
+
+function saveData() { localStorage.setItem('lq_content', JSON.stringify(D)); }
+
+function showOk(id) {
+  const el = document.getElementById(id);
+  el.classList.add('on');
+  setTimeout(() => el.classList.remove('on'), 2500);
+}
+
+function esc(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ── HISTORIA ──
+function renderHistoria() {
+  const ns = D.nosotros;
+  document.getElementById('ns-titulo').value = ns.titulo || '';
+  document.getElementById('ns-p1').value     = ns.p1     || '';
+  document.getElementById('ns-p2').value     = ns.p2     || '';
+
+  document.getElementById('features-editor').innerHTML = ns.features.map((f, i) => `
+    <div class="card" style="margin-bottom:0;">
+      <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.9rem;">
+        <i class="fa-solid ${f.icon}" style="color:var(--gold);width:16px;text-align:center;"></i>
+        <span style="font-size:.7rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.8px;">Característica ${i+1}</span>
+      </div>
+      <div class="field-group" style="margin-bottom:.6rem;">
+        <label>Título</label>
+        <input type="text" data-fi="${i}" data-fld="titulo" value="${esc(f.titulo)}">
+      </div>
+      <div class="field-group" style="margin-bottom:0;">
+        <label>Descripción</label>
+        <input type="text" data-fi="${i}" data-fld="desc" value="${esc(f.desc)}">
+      </div>
+    </div>
+  `).join('');
+}
+
+function saveHistoria() {
+  D.nosotros.titulo = document.getElementById('ns-titulo').value;
+  D.nosotros.p1     = document.getElementById('ns-p1').value;
+  D.nosotros.p2     = document.getElementById('ns-p2').value;
+  document.querySelectorAll('#features-editor input').forEach(inp => {
+    D.nosotros.features[+inp.dataset.fi][inp.dataset.fld] = inp.value;
+  });
+  saveData();
+  showOk('ok-historia');
+}
+
+// ── MENÚ ──
+function renderMenuTabs() {
+  document.getElementById('mc-tabs').innerHTML = D.menu.categorias.map((c,i) =>
+    `<button class="mctab ${i===activeCat?'on':''}" onclick="setMenuCat(${i})">${esc(c.nombre)}</button>`
+  ).join('');
+  renderMenuBody();
+}
+
+function setMenuCat(i) { activeCat = i; renderMenuTabs(); }
+
+function renderMenuBody() {
+  const cat = D.menu.categorias[activeCat];
+  document.getElementById('mc-body').innerHTML = `
+    <div class="card">
+      <div class="cat-rename">
+        <label>Nombre de categoría:</label>
+        <input type="text" value="${esc(cat.nombre)}" oninput="renameCat(this.value)">
+      </div>
+      <div class="items-header"><span>Nombre</span><span>Descripción</span><span>Precio</span><span></span></div>
+      <div id="mc-items">
+        ${cat.items.map((item,j) => `
+          <div class="item-row">
+            <input type="text" value="${esc(item.nombre)}" oninput="updateItem(${activeCat},${j},'nombre',this.value)">
+            <input type="text" value="${esc(item.desc)}"   oninput="updateItem(${activeCat},${j},'desc',this.value)">
+            <input type="text" value="${esc(item.precio)}" oninput="updateItem(${activeCat},${j},'precio',this.value)">
+            <button class="btn-del" onclick="deleteItem(${activeCat},${j})"><i class="fa-solid fa-trash-can"></i></button>
+          </div>`).join('')}
+      </div>
+      <div class="add-row">
+        <input type="text" id="new-n" placeholder="Nombre del plato">
+        <input type="text" id="new-d" placeholder="Descripción">
+        <input type="text" id="new-p" placeholder="$00.000">
+        <button class="btn-add" onclick="addItem(${activeCat})"><i class="fa-solid fa-plus"></i> Agregar</button>
+      </div>
+    </div>
+    ${activeCat > 0 ? `
+    <div style="margin-top:.8rem;">
+      <button class="btn-del-cat" onclick="deleteCategory(${activeCat})">
+        <i class="fa-solid fa-trash-can"></i> Eliminar categoría "${esc(cat.nombre)}"
+      </button>
+    </div>` : ''}
+  `;
+}
+
+function renameCat(val) {
+  D.menu.categorias[activeCat].nombre = val;
+  document.querySelectorAll('.mctab')[activeCat].textContent = val;
+}
+function updateItem(ci, ji, fld, val) { D.menu.categorias[ci].items[ji][fld] = val; }
+function deleteItem(ci, ji) { D.menu.categorias[ci].items.splice(ji, 1); renderMenuBody(); }
+function addItem(ci) {
+  const n = document.getElementById('new-n').value.trim();
+  if (!n) return;
+  D.menu.categorias[ci].items.push({
+    nombre: n,
+    desc:   document.getElementById('new-d').value.trim(),
+    precio: document.getElementById('new-p').value.trim()
+  });
+  renderMenuBody();
+}
+function addCategory() {
+  D.menu.categorias.push({id:'cat'+Date.now(), nombre:'Nueva Categoría', items:[]});
+  activeCat = D.menu.categorias.length - 1;
+  renderMenuTabs();
+}
+function deleteCategory(ci) {
+  if (!confirm('¿Eliminar esta categoría y todos sus ítems?')) return;
+  D.menu.categorias.splice(ci, 1);
+  activeCat = Math.max(0, activeCat - 1);
+  renderMenuTabs();
+}
+function saveMenu() { saveData(); showOk('ok-menu'); }
+
+// ── GALERÍA ──
+function renderGaleria() {
+  document.getElementById('ga-grid').innerHTML = D.galeria.map((url, i) => {
+    const empty = !url;
+    return `
+      <div class="ga-slot ${empty?'empty':''} ${gaSelected===i?'sel':''}" data-idx="${i}" onclick="selectSlot(${i}, event)">
+        <span class="ga-num">${i+1}</span>
+        ${url ? `<img src="${esc(url)}" alt="Imagen ${i+1}">` : ''}
+        <div class="ga-overlay">
+          <i class="fa-solid ${empty?'fa-plus':'fa-pen'}"></i>
+          <span>${empty ? 'Agregar imagen' : 'Cambiar imagen'}</span>
+        </div>
+        ${!empty ? `<button class="ga-del" onclick="clearSlot(${i},event)"><i class="fa-solid fa-xmark"></i></button>` : ''}
+      </div>`;
+  }).join('');
+}
+
+function selectSlot(i, e) {
+  if (e.target.closest('.ga-del')) return;
+  gaSelected = i;
+  document.getElementById('ga-sel-label').textContent = `Ranura ${i+1} seleccionada – abriendo selector de archivo…`;
+  renderGaleria();
+  document.getElementById('ga-file').click();
+}
+
+function clearSlot(i, e) {
+  e.stopPropagation();
+  D.galeria[i] = '';
+  if (gaSelected === i) gaSelected = null;
+  renderGaleria();
+  document.getElementById('ga-sel-label').textContent = 'Selecciona una ranura arriba para asignarle una URL';
+}
+
+function applyGaUrl() {
+  if (gaSelected === null) { alert('Selecciona una ranura primero haciendo clic en ella.'); return; }
+  const url = document.getElementById('ga-url-inp').value.trim();
+  if (!url) return;
+  D.galeria[gaSelected] = url;
+  document.getElementById('ga-url-inp').value = '';
+  document.getElementById('ga-sel-label').textContent = `Ranura ${gaSelected+1} actualizada con URL.`;
+  gaSelected = null;
+  renderGaleria();
+}
+
+function handleGaFile(input) {
+  if (!input.files.length || gaSelected === null) return;
+  const idx = gaSelected;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const img = new Image();
+    img.onload = function() {
+      const MAX = 900;
+      let w = img.width, h = img.height;
+      if (w > MAX || h > MAX) {
+        if (w > h) { h = Math.round(h * MAX / w); w = MAX; }
+        else       { w = Math.round(w * MAX / h); h = MAX; }
+      }
+      const canvas = document.createElement('canvas');
+      canvas.width = w; canvas.height = h;
+      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+      D.galeria[idx] = canvas.toDataURL('image/jpeg', 0.78);
+      document.getElementById('ga-sel-label').textContent = `Ranura ${idx+1} actualizada con imagen subida.`;
+      gaSelected = null;
+      renderGaleria();
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(input.files[0]);
+  input.value = '';
+}
+
+function saveGaleria() { saveData(); showOk('ok-galeria'); }
+
+// ── CONTACTO ──
+function renderContacto() {
+  const ct = D.contacto;
+  document.getElementById('ct-tel').value   = ct.telefono  || '';
+  document.getElementById('ct-cel').value   = ct.celular   || '';
+  document.getElementById('ct-dir').value   = ct.direccion || '';
+  document.getElementById('ct-email').value = ct.email     || '';
+  document.getElementById('ct-ig').value    = ct.instagram || '';
+}
+
+function saveContacto() {
+  D.contacto = {
+    telefono:  document.getElementById('ct-tel').value.trim(),
+    celular:   document.getElementById('ct-cel').value.trim(),
+    direccion: document.getElementById('ct-dir').value.trim(),
+    email:     document.getElementById('ct-email').value.trim(),
+    instagram: document.getElementById('ct-ig').value.trim().replace(/^@/, '')
+  };
+  saveData();
+  showOk('ok-contacto');
+}
+
+// ── INIT ──
+if (sessionStorage.getItem('lq_admin') === '1') showPanel();
+</script>
+</body>
+</html>
