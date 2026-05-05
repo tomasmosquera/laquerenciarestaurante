@@ -802,19 +802,16 @@
     });
   }
 
-  // Content loader – applies localStorage overrides
-  (function applyContent() {
-    const raw = localStorage.getItem('lq_content');
-    const saved = raw ? JSON.parse(raw) : null;
+  // Content loader – reads content.json (served by Vercel / local server)
+  function applyContent(d) {
+    if (!d) { buildMenu(LQ_MENU_DEFAULTS); return; }
 
-    // Menu (always built from JS)
-    const cats = (saved && saved.menu && saved.menu.categorias) ? saved.menu.categorias : LQ_MENU_DEFAULTS;
+    // Menu
+    const cats = (d.menu && d.menu.categorias && d.menu.categorias.length) ? d.menu.categorias : LQ_MENU_DEFAULTS;
     buildMenu(cats);
 
-    if (!saved) return;
-
     // Nosotros
-    const ns = saved.nosotros;
+    const ns = d.nosotros;
     if (ns) {
       const t = document.getElementById('lq-ns-titulo');
       if (t && ns.titulo) t.innerHTML = ns.titulo;
@@ -822,7 +819,7 @@
       if (p1 && ns.p1) p1.innerHTML = ns.p1;
       const p2 = document.getElementById('lq-ns-p2');
       if (p2 && ns.p2) p2.innerHTML = ns.p2;
-      if (ns.features) {
+      if (ns.features && ns.features.length) {
         const feats = document.getElementById('lq-ns-features');
         if (feats) feats.innerHTML = ns.features.map(f => `
           <div class="feature">
@@ -833,13 +830,13 @@
     }
 
     // Galería
-    if (saved.galeria) {
+    if (d.galeria && d.galeria.length) {
       const items = document.querySelectorAll('#lq-gallery .g-item img');
-      saved.galeria.forEach((url, i) => { if (items[i] && url) items[i].src = url; });
+      d.galeria.forEach((url, i) => { if (items[i] && url) items[i].src = url; });
     }
 
     // Contacto
-    const ct = saved.contacto;
+    const ct = d.contacto;
     if (ct) {
       const dir = document.getElementById('lq-ct-dir');
       if (dir && ct.direccion) dir.innerHTML = lqEsc(ct.direccion).replace(/,\s*/g, ',<br>');
@@ -854,7 +851,12 @@
       const ig = document.getElementById('lq-ct-ig');
       if (ig && ct.instagram) { ig.textContent = '@' + ct.instagram; ig.href = 'https://www.instagram.com/' + ct.instagram + '/'; }
     }
-  })();
+  }
+
+  fetch('/content.json')
+    .then(r => r.ok ? r.json() : null)
+    .then(applyContent)
+    .catch(() => applyContent(null));
 
   // Lightbox
   function openLb(el) {
