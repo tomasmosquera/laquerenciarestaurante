@@ -29,6 +29,32 @@
   "menu": {
     "categorias": [
       {
+        "id": "entradas",
+        "nombre": "Entradas",
+        "items": [
+          {
+            "nombre": "Empanadas Criollas",
+            "desc": "Masa artesanal rellena de carne especiada con cebolla y huevo. Porción 4 unidades.",
+            "precio": "$28.000"
+          },
+          {
+            "nombre": "Mollejas a la Plancha",
+            "desc": "Mollejas de ternera con limón, ajo y perejil. Crujientes por fuera, suaves por dentro.",
+            "precio": "$38.000"
+          },
+          {
+            "nombre": "Chorizo Criollo",
+            "desc": "Chorizo artesanal de elaboración propia, con pan de campo y chimichurri.",
+            "precio": "$25.000"
+          },
+          {
+            "nombre": "Provoleta",
+            "desc": "Queso provolone a la parrilla con orégano y aceite de oliva. Un clásico.",
+            "precio": "$32.000"
+          }
+        ]
+      },
+      {
         "id": "parrilla",
         "nombre": "Parrilla",
         "items": [
@@ -61,32 +87,6 @@
             "nombre": "Parrillada Completa",
             "desc": "Morcilla, chorizo, mollejas, riñones, vacío y entraña. Para 2 personas.",
             "precio": "$180.000"
-          }
-        ]
-      },
-      {
-        "id": "entradas",
-        "nombre": "Entradas",
-        "items": [
-          {
-            "nombre": "Empanadas Criollas",
-            "desc": "Masa artesanal rellena de carne especiada con cebolla y huevo. Porción 4 unidades.",
-            "precio": "$28.000"
-          },
-          {
-            "nombre": "Mollejas a la Plancha",
-            "desc": "Mollejas de ternera con limón, ajo y perejil. Crujientes por fuera, suaves por dentro.",
-            "precio": "$38.000"
-          },
-          {
-            "nombre": "Chorizo Criollo",
-            "desc": "Chorizo artesanal de elaboración propia, con pan de campo y chimichurri.",
-            "precio": "$25.000"
-          },
-          {
-            "nombre": "Provoleta",
-            "desc": "Queso provolone a la parrilla con orégano y aceite de oliva. Un clásico.",
-            "precio": "$32.000"
           }
         ]
       },
