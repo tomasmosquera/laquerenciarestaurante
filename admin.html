@@ -140,6 +140,25 @@
     .subcat-section-label { font-size:.68rem; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:var(--muted); margin:.5rem 0 .55rem; display:flex; align-items:center; gap:.5rem; }
     .subcat-section-label::after { content:''; flex:1; height:1px; background:var(--border); }
 
+    /* ── HORARIOS ── */
+    .hor-grid { display:flex; flex-direction:column; gap:.5rem; }
+    .hor-row { background:var(--s2); border:1px solid var(--border); padding:.85rem 1.1rem; }
+    .hor-row-hdr { display:flex; align-items:center; gap:.85rem; }
+    .hor-day-name { font-weight:600; font-size:.85rem; min-width:100px; }
+    .hor-toggle-wrap { display:flex; align-items:center; gap:.45rem; cursor:pointer; user-select:none; }
+    .hor-toggle-wrap input[type=checkbox] { accent-color:var(--gold); width:15px; height:15px; cursor:pointer; }
+    .hor-status { font-size:.76rem; }
+    .hor-status.open { color:var(--ok); }
+    .hor-status.closed { color:var(--muted); }
+    .hor-franjas { margin-top:.6rem; margin-left:calc(100px + .85rem); display:flex; flex-direction:column; gap:.38rem; }
+    .hor-franja-row { display:flex; align-items:center; gap:.45rem; flex-wrap:wrap; }
+    .hor-franja-lbl { font-size:.74rem; color:var(--muted); min-width:50px; }
+    .hor-time-inp { background:#1a1a1a; border:1px solid #3a3a3a; color:var(--text); padding:.35rem .55rem; font-size:.83rem; font-family:inherit; outline:none; width:100px; }
+    .hor-time-inp:focus { border-color:var(--gold); }
+    .hor-sep { color:var(--muted); font-size:.8rem; }
+    .hor-add-franja { background:none; border:1px dashed var(--border); color:var(--muted); padding:.28rem .7rem; font-size:.74rem; cursor:pointer; font-family:inherit; transition:all .2s; margin-top:.3rem; margin-left:calc(100px + .85rem); }
+    .hor-add-franja:hover { border-color:var(--gold); color:var(--gold); }
+
     /* ── GALLERY ── */
     .ga-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:.85rem; margin-bottom:1.4rem; }
     .ga-slot { aspect-ratio:1; background:#1a1a1a; border:2px dashed var(--border); position:relative; overflow:hidden; cursor:pointer; transition:border-color .2s; }
@@ -249,6 +268,7 @@
     <button class="ptab"    data-pane="menu"     onclick="showPane('menu')"><i class="fa-solid fa-utensils"></i> Menú</button>
     <button class="ptab"    data-pane="galeria"  onclick="showPane('galeria')"><i class="fa-solid fa-images"></i> Galería</button>
     <button class="ptab"    data-pane="contacto" onclick="showPane('contacto')"><i class="fa-solid fa-address-card"></i> Contacto</button>
+    <button class="ptab"    data-pane="horarios" onclick="showPane('horarios')"><i class="fa-solid fa-clock"></i> Horarios</button>
   </div>
 
   <div class="panel-body">
@@ -297,6 +317,16 @@
       <input type="file" id="ga-file" accept="image/*" onchange="handleGaFile(this)">
       <div class="save-row">
         <button class="btn-save" id="btn-ga" onclick="saveGaleria()"><i class="fa-solid fa-cloud-arrow-up"></i> Publicar Galería</button>
+      </div>
+    </div>
+
+    <!-- HORARIOS -->
+    <div class="pane" id="pane-horarios">
+      <div class="pane-title">Horarios de Atención</div>
+      <div class="pane-desc">Define qué días y en qué franjas horarias está abierto el restaurante. El formulario de reservas mostrará automáticamente solo las horas disponibles según el día que elija el cliente.</div>
+      <div class="hor-grid" id="hor-grid"></div>
+      <div class="save-row">
+        <button class="btn-save" id="btn-hor" onclick="saveHorarios()"><i class="fa-solid fa-cloud-arrow-up"></i> Publicar Horarios</button>
       </div>
     </div>
 
@@ -455,6 +485,7 @@ async function showPanel() {
   renderMenuTabs();
   renderGaleria();
   renderContacto();
+  renderHorarios();
 }
 function showPane(name) {
   document.querySelectorAll('.pane').forEach(p => p.classList.remove('on'));
@@ -738,6 +769,68 @@ async function saveContacto() {
   };
   await saveToGitHub('btn-ct');
 }
+
+// ── HORARIOS ──
+const DIAS    = ['lunes','martes','miercoles','jueves','viernes','sabado','domingo'];
+const DIAS_ES = ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
+
+function defaultHorarios() {
+  const h = {};
+  DIAS.forEach(d => { h[d] = {abierto:true, franjas:[{desde:'12:00',hasta:'15:00'},{desde:'19:00',hasta:'22:00'}]}; });
+  return h;
+}
+
+function renderHorarios() {
+  const hors = D.horarios || defaultHorarios();
+  document.getElementById('hor-grid').innerHTML = DIAS.map((d, i) => {
+    const day = hors[d] || {abierto:false, franjas:[]};
+    const franjaRows = day.abierto ? day.franjas.map((f, fi) => `
+      <div class="hor-franja-row">
+        <span class="hor-franja-lbl">Franja ${fi+1}</span>
+        <input type="time" class="hor-time-inp" value="${esc(f.desde)}" onchange="updFranja('${d}',${fi},'desde',this.value)">
+        <span class="hor-sep">→</span>
+        <input type="time" class="hor-time-inp" value="${esc(f.hasta)}" onchange="updFranja('${d}',${fi},'hasta',this.value)">
+        <button class="btn-del" style="width:26px;height:26px;font-size:.7rem;" onclick="delFranja('${d}',${fi})" title="Quitar franja"><i class="fa-solid fa-xmark"></i></button>
+      </div>`).join('') : '';
+    const canAdd = day.abierto && day.franjas.length < 2;
+    return `
+      <div class="hor-row">
+        <div class="hor-row-hdr">
+          <span class="hor-day-name">${DIAS_ES[i]}</span>
+          <label class="hor-toggle-wrap">
+            <input type="checkbox" ${day.abierto?'checked':''} onchange="toggleDia('${d}',this.checked)">
+            <span class="hor-status ${day.abierto?'open':'closed'}">${day.abierto?'Abierto':'Cerrado'}</span>
+          </label>
+        </div>
+        ${day.abierto ? `<div class="hor-franjas">${franjaRows}</div>` : ''}
+        ${canAdd ? `<button class="hor-add-franja" onclick="addFranja('${d}')"><i class="fa-solid fa-plus"></i> Agregar franja</button>` : ''}
+      </div>`;
+  }).join('');
+}
+
+function toggleDia(dia, abierto) {
+  if (!D.horarios) D.horarios = defaultHorarios();
+  D.horarios[dia].abierto = abierto;
+  if (abierto && (!D.horarios[dia].franjas || !D.horarios[dia].franjas.length))
+    D.horarios[dia].franjas = [{desde:'12:00',hasta:'15:00'}];
+  renderHorarios();
+}
+function addFranja(dia) {
+  if (!D.horarios) D.horarios = defaultHorarios();
+  if (D.horarios[dia].franjas.length >= 2) return;
+  D.horarios[dia].franjas.push({desde:'19:00',hasta:'22:00'});
+  renderHorarios();
+}
+function delFranja(dia, fi) {
+  if (!D.horarios) D.horarios = defaultHorarios();
+  D.horarios[dia].franjas.splice(fi, 1);
+  renderHorarios();
+}
+function updFranja(dia, fi, field, val) {
+  if (!D.horarios) D.horarios = defaultHorarios();
+  D.horarios[dia].franjas[fi][field] = val;
+}
+async function saveHorarios() { await saveToGitHub('btn-hor'); }
 
 // ── INIT ──
 if (sessionStorage.getItem('lq_admin')==='1') showPanel();

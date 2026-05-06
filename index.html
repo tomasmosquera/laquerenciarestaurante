@@ -629,11 +629,8 @@
           <div class="form-row">
             <div class="fg"><label>Fecha</label><input type="date" id="resDate" required></div>
             <div class="fg"><label>Hora</label>
-              <select id="resHora" required>
-                <option value="" disabled selected>Seleccionar</option>
-                <option>12:00 PM</option><option>12:30 PM</option><option>1:00 PM</option>
-                <option>1:30 PM</option><option>2:00 PM</option><option>7:00 PM</option>
-                <option>7:30 PM</option><option>8:00 PM</option><option>8:30 PM</option><option>9:00 PM</option>
+              <select id="resHora">
+                <option value="" disabled selected>Selecciona primero una fecha</option>
               </select>
             </div>
           </div>
@@ -795,8 +792,55 @@
     ]}
   ];
 
+  let lqHorarios = null;
+
   function lqEsc(s) {
     const d = document.createElement('div'); d.textContent = String(s||''); return d.innerHTML;
+  }
+
+  // Returns array of "H:MM AM/PM" slots for a given date string, or null if no horarios configured
+  function getSlotsForDate(dateStr) {
+    if (!lqHorarios || !dateStr) return null;
+    const dayNames = ['domingo','lunes','martes','miercoles','jueves','viernes','sabado'];
+    const dayName  = dayNames[new Date(dateStr + 'T12:00:00').getDay()];
+    const day      = lqHorarios[dayName];
+    if (!day || !day.abierto || !day.franjas || !day.franjas.length) return [];
+    const slots = [];
+    for (const f of day.franjas) {
+      const [fH, fM] = f.desde.split(':').map(Number);
+      const [tH, tM] = f.hasta.split(':').map(Number);
+      let cur = fH * 60 + fM, end = tH * 60 + tM;
+      while (cur <= end) {
+        const h = Math.floor(cur / 60), m = cur % 60;
+        const h12 = h % 12 === 0 ? 12 : h % 12;
+        slots.push(`${h12}:${String(m).padStart(2,'0')} ${h >= 12 ? 'PM' : 'AM'}`);
+        cur += 30;
+      }
+    }
+    return slots;
+  }
+
+  function updateHoraSelect() {
+    const sel   = document.getElementById('resHora');
+    const date  = document.getElementById('resDate').value;
+    const slots = getSlotsForDate(date);
+    if (slots === null) {
+      // No horarios configured — keep/restore static fallback
+      sel.innerHTML = `
+        <option value="" disabled selected>Seleccionar</option>
+        <option>12:00 PM</option><option>12:30 PM</option><option>1:00 PM</option>
+        <option>1:30 PM</option><option>2:00 PM</option><option>7:00 PM</option>
+        <option>7:30 PM</option><option>8:00 PM</option><option>8:30 PM</option><option>9:00 PM</option>`;
+      sel.disabled = false;
+    } else if (slots.length === 0) {
+      sel.innerHTML = `<option value="" disabled selected>Cerrado ese día</option>`;
+      sel.disabled = true;
+    } else {
+      sel.innerHTML = `<option value="" disabled selected>Seleccionar hora</option>` +
+        slots.map(s => `<option>${s}</option>`).join('');
+      sel.disabled = false;
+      sel.value = '';
+    }
   }
 
   function fmtPrice(raw) {
@@ -900,7 +944,15 @@
       const ig = document.getElementById('lq-ct-ig');
       if (ig && ct.instagram) { ig.textContent = '@' + ct.instagram; ig.href = 'https://www.instagram.com/' + ct.instagram + '/'; }
     }
+    if (d.horarios) {
+      lqHorarios = d.horarios;
+      if (document.getElementById('resDate').value) updateHoraSelect();
+    }
   }
+
+  // Set min date to today and wire up dynamic hour select
+  document.getElementById('resDate').min = new Date().toISOString().split('T')[0];
+  document.getElementById('resDate').addEventListener('change', updateHoraSelect);
 
   fetch('/content.json')
     .then(r => r.ok ? r.json() : null)
@@ -922,12 +974,15 @@
   // Reservation form → WhatsApp
   function submitRes(e) {
     e.preventDefault();
+    const sel = document.getElementById('resHora');
+    if (sel.disabled) { alert('El restaurante no atiende ese día. Por favor elige otra fecha.'); return; }
     const nombre   = document.getElementById('resNombre').value.trim();
     const apellido = document.getElementById('resApellido').value.trim();
     const tel      = document.getElementById('resTel').value.trim();
     const email    = document.getElementById('resEmail').value.trim();
     const fecha    = document.getElementById('resDate').value;
-    const hora     = document.getElementById('resHora').value;
+    const hora     = sel.value;
+    if (!hora) { sel.focus(); return; }
     const personas = document.getElementById('resPersonas').value;
     const notas    = document.getElementById('resNotas').value.trim();
 
