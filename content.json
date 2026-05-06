@@ -244,6 +244,22 @@
         ]
       },
       {
+        "id": "cat1778037597440",
+        "nombre": "Parrilla - Cortes Gruesos",
+        "items": [
+          {
+            "nombre": "Bife de Baby",
+            "desc": "",
+            "precio": "$75.000"
+          },
+          {
+            "nombre": "Bife de Chorizo",
+            "desc": "",
+            "precio": "$75.000"
+          }
+        ]
+      },
+      {
         "id": "cat1778015888657",
         "nombre": "Pescados y Mariscos",
         "items": [
