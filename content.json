@@ -193,6 +193,22 @@
             "precio": "Desde $8.000"
           }
         ]
+      },
+      {
+        "id": "cat1778032273750",
+        "nombre": "Sopas y Cremas",
+        "items": [
+          {
+            "nombre": "De Maíz",
+            "desc": "Crema de maíz dulce, croutons y queso fresco",
+            "precio": "$20.500"
+          },
+          {
+            "nombre": "De Tomate",
+            "desc": "Sopa a base de tomates frescos, aceite de oliva, ajo, pimentón rojo",
+            "precio": "$20.500"
+          }
+        ]
       }
     ]
   },
