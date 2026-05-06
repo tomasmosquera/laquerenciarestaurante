@@ -429,6 +429,31 @@
                 "precio": "65000"
               }
             ]
+          },
+          {
+            "nombre": "Pasta Artesanal",
+            "items": [
+              {
+                "nombre": "Fetuccini en Salsa Pesto o Al Burro o Alfredo",
+                "desc": "",
+                "precio": "42500"
+              },
+              {
+                "nombre": "Fetuccini en Salsa de Camarón",
+                "desc": "",
+                "precio": "56500"
+              },
+              {
+                "nombre": "Fetuccini en Salsa de Hongos",
+                "desc": "Pasta Larga y Ancha con Salsa de Hongos Secos y Frescos",
+                "precio": "52500"
+              },
+              {
+                "nombre": "Fetuccine Pomodoro y Burrata",
+                "desc": "Pasta Larga y Delgada con Salsa de Tomates Asados",
+                "precio": "51000"
+              }
+            ]
           }
         ]
       },
