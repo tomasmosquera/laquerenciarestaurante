@@ -41,6 +41,16 @@
             "nombre": "De Tomate",
             "desc": "Sopa a base de tomates frescos, aceite de oliva, ajo, pimentón rojo",
             "precio": "$20.500"
+          },
+          {
+            "nombre": "Cazuela de Mariscos",
+            "desc": "Variedad de Mariscos con Leche de Coco y",
+            "precio": "$63.000"
+          },
+          {
+            "nombre": "Encocado de Camarón",
+            "desc": "Camarones Guisados con Sofrito del",
+            "precio": "$60.000"
           }
         ]
       },
