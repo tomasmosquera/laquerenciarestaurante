@@ -272,6 +272,41 @@
                 "precio": "$160.000"
               }
             ]
+          },
+          {
+            "nombre": "Cortes con Salsas Tradicionales",
+            "items": [
+              {
+                "nombre": "Bistec a Caballo",
+                "desc": "",
+                "precio": "75000"
+              },
+              {
+                "nombre": "Bistec a la Criolla",
+                "desc": "",
+                "precio": "75000"
+              },
+              {
+                "nombre": "Bistec Encebollado",
+                "desc": "",
+                "precio": "75000"
+              },
+              {
+                "nombre": "Filet Migñon",
+                "desc": "",
+                "precio": "75000"
+              },
+              {
+                "nombre": "Morrillo",
+                "desc": "",
+                "precio": "58000"
+              },
+              {
+                "nombre": "Steak Pimienta",
+                "desc": "",
+                "precio": "75000"
+              }
+            ]
           }
         ]
       },
