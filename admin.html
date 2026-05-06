@@ -153,7 +153,7 @@
     .hor-franjas { margin-top:.6rem; margin-left:calc(100px + .85rem); display:flex; flex-direction:column; gap:.38rem; }
     .hor-franja-row { display:flex; align-items:center; gap:.45rem; flex-wrap:wrap; }
     .hor-franja-lbl { font-size:.74rem; color:var(--muted); min-width:50px; }
-    .hor-time-inp { background:#1a1a1a; border:1px solid #3a3a3a; color:var(--text); padding:.35rem .55rem; font-size:.83rem; font-family:inherit; outline:none; width:100px; }
+    .hor-time-inp { background:#1a1a1a; border:1px solid #3a3a3a; color:var(--text); padding:.65rem 1rem; font-size:1.1rem; font-family:inherit; outline:none; width:155px; }
     .hor-time-inp:focus { border-color:var(--gold); }
     .hor-sep { color:var(--muted); font-size:.8rem; }
     .hor-add-franja { background:none; border:1px dashed var(--border); color:var(--muted); padding:.28rem .7rem; font-size:.74rem; cursor:pointer; font-family:inherit; transition:all .2s; margin-top:.3rem; margin-left:calc(100px + .85rem); }
@@ -790,7 +790,7 @@ function renderHorarios() {
         <input type="time" class="hor-time-inp" value="${esc(f.desde)}" onchange="updFranja('${d}',${fi},'desde',this.value)">
         <span class="hor-sep">→</span>
         <input type="time" class="hor-time-inp" value="${esc(f.hasta)}" onchange="updFranja('${d}',${fi},'hasta',this.value)">
-        <button class="btn-del" style="width:26px;height:26px;font-size:.7rem;" onclick="delFranja('${d}',${fi})" title="Quitar franja"><i class="fa-solid fa-xmark"></i></button>
+        <button class="btn-del" style="width:34px;height:34px;font-size:.8rem;background:var(--danger);border-color:var(--danger);color:#fff;" onclick="delFranja('${d}',${fi})" title="Quitar franja"><i class="fa-solid fa-xmark"></i></button>
       </div>`).join('') : '';
     const canAdd = day.abierto && day.franjas.length < 2;
     return `
