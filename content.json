@@ -184,7 +184,7 @@
       },
       {
         "id": "parrilla",
-        "nombre": "Parrilla - Certified Angus Beef",
+        "nombre": "Parrilla",
         "items": [],
         "subcategorias": [
           {
@@ -219,60 +219,48 @@
                 "nombre": "Baby Beef",
                 "desc": "300 Gramos",
                 "precio": "$68.500"
+              },
+              {
+                "nombre": "Baby Beef",
+                "desc": "400 Gramos",
+                "precio": "$75.000"
+              },
+              {
+                "nombre": "Lomo Caracha",
+                "desc": "300 Gramos",
+                "precio": "$68.500"
+              },
+              {
+                "nombre": "Lomo Caracha",
+                "desc": "400 Gramos",
+                "precio": "$75.000"
+              },
+              {
+                "nombre": "Punta de Anca",
+                "desc": "300 Gramos",
+                "precio": "$68.500"
+              },
+              {
+                "nombre": "Punta de Anca",
+                "desc": "400 Gramos",
+                "precio": "$75.000"
               }
             ]
-          }
-        ]
-      },
-      {
-        "id": "cat1778037468080",
-        "nombre": "Parrilla - Cortes Delgados",
-        "items": [
-          {
-            "nombre": "Baby Beef",
-            "desc": "300 Gramos",
-            "precio": "$68.500"
           },
           {
-            "nombre": "Baby Beef",
-            "desc": "400 Gramos",
-            "precio": "$75.000"
-          },
-          {
-            "nombre": "Lomo Caracha",
-            "desc": "300 Gramos",
-            "precio": "$68.500"
-          },
-          {
-            "nombre": "Lomo Caracha",
-            "desc": "400 Gramos",
-            "precio": "$75.000"
-          },
-          {
-            "nombre": "Punta de Anca",
-            "desc": "300 Gramos",
-            "precio": "$68.500"
-          },
-          {
-            "nombre": "Punta de Anca",
-            "desc": "400 Gramos",
-            "precio": "$75.000"
-          }
-        ]
-      },
-      {
-        "id": "cat1778037597440",
-        "nombre": "Parrilla - Cortes Gruesos",
-        "items": [
-          {
-            "nombre": "Bife de Baby",
-            "desc": "",
-            "precio": "$75.000"
-          },
-          {
-            "nombre": "Bife de Chorizo",
-            "desc": "",
-            "precio": "$75.000"
+            "nombre": "Cortes Gruesos",
+            "items": [
+              {
+                "nombre": "Bife de Baby",
+                "desc": "400 Gramos",
+                "precio": "$75.000"
+              },
+              {
+                "nombre": "Bife de Chorizo",
+                "desc": "400 Gramos",
+                "precio": "$75.000"
+              }
+            ]
           }
         ]
       },
