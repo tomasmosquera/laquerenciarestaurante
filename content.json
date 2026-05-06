@@ -72,27 +72,87 @@
       },
       {
         "id": "entradas",
-        "nombre": "Entradas",
+        "nombre": "Entradas para Compartir",
         "items": [
           {
-            "nombre": "Empanada Criolla",
-            "desc": "Masa artesanal rellena de carne especiada con cebolla y huevo. Porción 4 unidades.",
-            "precio": "$28.000"
+            "nombre": "Burrata",
+            "desc": "Burrata con Berengenas Agridulces, Pasas,",
+            "precio": "$42.000"
           },
           {
-            "nombre": "Mollejas a la Plancha",
-            "desc": "Mollejas de ternera con limón, ajo y perejil. Crujientes por fuera, suaves por dentro.",
-            "precio": "$38.000"
+            "nombre": "Carpaccio de Lomo Asado",
+            "desc": "Con Cebolla frita, rugula. aderezo de limon y ",
+            "precio": "$41.500"
           },
           {
-            "nombre": "Chorizo Criollo",
-            "desc": "Chorizo artesanal de elaboración propia, con pan de campo y chimichurri.",
+            "nombre": "Ceviche de Chicharrón",
+            "desc": "Con Gajos de Naranja, Aguacate y Aji ",
+            "precio": "$46.000"
+          },
+          {
+            "nombre": "Champiñones al Ajillo",
+            "desc": "",
+            "precio": "$32.500"
+          },
+          {
+            "nombre": "Chicharrón Carnudo",
+            "desc": "Confitado al Vacio a fuego lento,",
+            "precio": "$50.000"
+          },
+          {
+            "nombre": "Chicharrón Dorado con Guayaba",
+            "desc": "Cocido 24 Horas, bocadillo veleño, BBQ de",
+            "precio": "$47.000"
+          },
+          {
+            "nombre": "Chorizo",
+            "desc": "",
+            "precio": "$19.500"
+          },
+          {
+            "nombre": "Chunchulo",
+            "desc": "",
+            "precio": "$45.000"
+          },
+          {
+            "nombre": "Esparragos a la Parrilla",
+            "desc": "Asados a la Parrilla con Vinagreta de Jerez",
+            "precio": "$22.500"
+          },
+          {
+            "nombre": "Espiral de Chorizo",
+            "desc": "Rueda de chorizo italiano, 100% de cerdo",
+            "precio": "$41.500"
+          },
+          {
+            "nombre": "Morcilla",
+            "desc": "",
+            "precio": "$14.000"
+          },
+          {
+            "nombre": "Papas Asadas",
+            "desc": "Con Mascarrone, Panceta Ahumada y",
+            "precio": "$13.000"
+          },
+          {
+            "nombre": "Picada Personal",
+            "desc": "Chunchulo, Chorizo, Morcilla, Arepa, Limon",
+            "precio": "$50.000"
+          },
+          {
+            "nombre": "Pulpo Asado a la Parrilla",
+            "desc": "Con chimichurry, papas amarillas doradas",
+            "precio": "$55.000"
+          },
+          {
+            "nombre": "Queso Paipa Asado",
+            "desc": "Con aguacate grillado, salsa sweet chilli,",
+            "precio": "$41.500"
+          },
+          {
+            "nombre": "Ubre",
+            "desc": "",
             "precio": "$25.000"
-          },
-          {
-            "nombre": "Provoleta",
-            "desc": "Queso provolone a la parrilla con orégano y aceite de oliva. Un clásico.",
-            "precio": "$32.000"
           }
         ]
       },
