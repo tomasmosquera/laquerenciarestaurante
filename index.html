@@ -267,6 +267,14 @@
     .menu-item p { font-family:var(--elegant); font-size:.9rem; color:var(--muted); line-height:1.65; max-width:310px; }
     .menu-price { font-family:var(--serif); font-size:.95rem; color:var(--gold); white-space:nowrap; flex-shrink:0; padding-top:.15rem; }
     .menu-note { text-align:center; margin-top:2.5rem; font-family:var(--elegant); font-size:.95rem; color:var(--muted); }
+    .menu-subcat { grid-column:1/-1; }
+    .menu-subcat-title {
+      font-family:var(--sans); font-size:.68rem; font-weight:700;
+      letter-spacing:3px; text-transform:uppercase; color:var(--gold);
+      padding:.9rem 1.8rem .3rem; opacity:.75;
+      border-top:1px solid rgba(255,255,255,.055); margin-top:.4rem;
+    }
+    .menu-subcat:first-child .menu-subcat-title { border-top:none; margin-top:0; }
 
     /* ── GALERÍA ── */
     #galeria { padding:8rem 4rem; background:var(--dark); }
@@ -779,20 +787,35 @@
     const d = document.createElement('div'); d.textContent = String(s||''); return d.innerHTML;
   }
 
+  function menuItemHtml(item) {
+    return `<div class="menu-item">
+      <div><h3>${lqEsc(item.nombre)}</h3><p>${lqEsc(item.desc)}</p></div>
+      <span class="menu-price">${lqEsc(item.precio)}</span>
+    </div>`;
+  }
+
   function buildMenu(cats) {
     const tabsEl = document.getElementById('lq-menu-tabs');
     const bodyEl = document.getElementById('lq-menu-body');
     tabsEl.innerHTML = cats.map((c,i) =>
       `<button class="tab ${i===0?'on':''}" data-idx="${i}">${lqEsc(c.nombre)}</button>`
     ).join('');
-    bodyEl.innerHTML = cats.map((c,i) => `
-      <div class="menu-cat ${i===0?'on':''}" data-cat-idx="${i}">
-        ${c.items.map(item => `
-          <div class="menu-item">
-            <div><h3>${lqEsc(item.nombre)}</h3><p>${lqEsc(item.desc)}</p></div>
-            <span class="menu-price">${lqEsc(item.precio)}</span>
-          </div>`).join('')}
-      </div>`).join('');
+    bodyEl.innerHTML = cats.map((c,i) => {
+      let inner = '';
+      // direct items (no sub-subcat)
+      if (c.items && c.items.length) {
+        inner += c.items.map(menuItemHtml).join('');
+      }
+      // sub-subcategories
+      if (c.subcategorias && c.subcategorias.length) {
+        inner += c.subcategorias.map(sub => `
+          <div class="menu-subcat">
+            <div class="menu-subcat-title">${lqEsc(sub.nombre)}</div>
+            ${(sub.items||[]).map(menuItemHtml).join('')}
+          </div>`).join('');
+      }
+      return `<div class="menu-cat ${i===0?'on':''}" data-cat-idx="${i}">${inner}</div>`;
+    }).join('');
     tabsEl.querySelectorAll('.tab').forEach(btn => {
       btn.addEventListener('click', () => {
         tabsEl.querySelectorAll('.tab').forEach(b => b.classList.remove('on'));

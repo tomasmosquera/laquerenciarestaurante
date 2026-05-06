@@ -132,6 +132,14 @@
     .btn-del-cat { background:none; border:1px solid #3a1a1a; color:var(--danger); padding:.38rem .85rem; cursor:pointer; font-family:inherit; font-size:.74rem; display:inline-flex; align-items:center; gap:.32rem; transition:all .2s; margin-top:.7rem; }
     .btn-del-cat:hover { background:var(--danger); color:#fff; border-color:var(--danger); }
 
+    /* ── SUBCAT GROUPS ── */
+    .subcat-block { background:#141414; border:1px solid #3a2a18; padding:1rem 1.1rem; margin-bottom:.75rem; }
+    .subcat-block-hdr { display:flex; align-items:center; gap:.5rem; margin-bottom:.8rem; }
+    .subcat-name-inp { flex:1; background:#1e1e1e; border:1px solid #3a3a3a; color:var(--text); padding:.38rem .62rem; font-size:.86rem; font-family:inherit; outline:none; transition:border-color .2s; }
+    .subcat-name-inp:focus { border-color:var(--gold); }
+    .subcat-section-label { font-size:.68rem; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:var(--muted); margin:.5rem 0 .55rem; display:flex; align-items:center; gap:.5rem; }
+    .subcat-section-label::after { content:''; flex:1; height:1px; background:var(--border); }
+
     /* ── GALLERY ── */
     .ga-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:.85rem; margin-bottom:1.4rem; }
     .ga-slot { aspect-ratio:1; background:#1a1a1a; border:2px dashed var(--border); position:relative; overflow:hidden; cursor:pointer; transition:border-color .2s; }
@@ -520,58 +528,126 @@ function moveCat(dir) {
   activeCat = ni;
   renderMenuTabs();
 }
+function itemRowsHtml(items, updFn, delFn, addFn, addIdPrefix) {
+  return `
+    <div class="items-hdr"><span>Nombre</span><span>Descripción</span><span>Precio</span><span></span></div>
+    <div>
+      ${(items||[]).map((item,j) => `
+        <div class="item-row">
+          <input type="text" value="${esc(item.nombre)}" oninput="${updFn}(${j},'nombre',this.value)">
+          <input type="text" value="${esc(item.desc)}"   oninput="${updFn}(${j},'desc',this.value)">
+          <input type="text" value="${esc(item.precio)}" oninput="${updFn}(${j},'precio',this.value)">
+          <button class="btn-del" onclick="${delFn}(${j})"><i class="fa-solid fa-trash-can"></i></button>
+        </div>`).join('')}
+    </div>
+    <div class="add-row">
+      <input type="text" id="${addIdPrefix}-n" placeholder="Nombre del plato">
+      <input type="text" id="${addIdPrefix}-d" placeholder="Descripción">
+      <input type="text" id="${addIdPrefix}-p" placeholder="$00.000">
+      <button class="btn-add" onclick="${addFn}()"><i class="fa-solid fa-plus"></i> Agregar</button>
+    </div>`;
+}
+
 function renderMenuBody() {
   const cats = (D.menu && D.menu.categorias) ? D.menu.categorias : [];
   if (!cats.length) {
-    document.getElementById('mc-body').innerHTML = '<p style="color:var(--muted);font-size:.84rem;">No hay subcategorías. Crea la primera con el botón de abajo.</p>';
+    document.getElementById('mc-body').innerHTML = '<p style="color:var(--muted);font-size:.84rem;">No hay categorías. Crea la primera con el botón de abajo.</p>';
     return;
   }
-  const cat = cats[activeCat];
-  document.getElementById('mc-body').innerHTML = `
-    <div class="card">
+  const ci  = activeCat;
+  const cat = cats[ci];
+  const subs = cat.subcategorias || [];
+
+  // Direct items section
+  const directHtml = `
+    <div class="card" style="margin-bottom:1.2rem;">
       <div class="cat-rename">
         <label>Nombre:</label>
         <input type="text" value="${esc(cat.nombre)}" oninput="renameCat(this.value)">
       </div>
-      <div class="items-hdr"><span>Nombre</span><span>Descripción</span><span>Precio</span><span></span></div>
-      <div id="mc-items">
-        ${(cat.items||[]).map((item,j) => `
-          <div class="item-row">
-            <input type="text" value="${esc(item.nombre)}" oninput="updItem(${activeCat},${j},'nombre',this.value)">
-            <input type="text" value="${esc(item.desc)}"   oninput="updItem(${activeCat},${j},'desc',this.value)">
-            <input type="text" value="${esc(item.precio)}" oninput="updItem(${activeCat},${j},'precio',this.value)">
-            <button class="btn-del" onclick="delItem(${activeCat},${j})"><i class="fa-solid fa-trash-can"></i></button>
-          </div>`).join('')}
-      </div>
-      <div class="add-row">
-        <input type="text" id="new-n" placeholder="Nombre del plato">
-        <input type="text" id="new-d" placeholder="Descripción">
-        <input type="text" id="new-p" placeholder="$00.000">
-        <button class="btn-add" onclick="addItem(${activeCat})"><i class="fa-solid fa-plus"></i> Agregar</button>
-      </div>
-      ${activeCat > 0 ? `<button class="btn-del-cat" onclick="delCategory(${activeCat})"><i class="fa-solid fa-trash-can"></i> Eliminar subcategoría "${esc(cat.nombre)}"</button>` : ''}
+      <div class="subcat-section-label">Ítems directos <span style="color:var(--text);font-weight:400;text-transform:none;letter-spacing:0;">— sin encabezado de grupo</span></div>
+      ${itemRowsHtml(cat.items,
+          `updItem.bind(null,${ci})`,
+          `delItem.bind(null,${ci})`,
+          `addItem.bind(null,${ci})`,
+          'di')}
+      ${ci > 0 ? `<button class="btn-del-cat" style="margin-top:.9rem;" onclick="delCategory(${ci})"><i class="fa-solid fa-trash-can"></i> Eliminar categoría "${esc(cat.nombre)}"</button>` : ''}
     </div>`;
+
+  // Sub-subcategory blocks
+  const subsHtml = subs.map((sub, si) => `
+    <div class="subcat-block">
+      <div class="subcat-block-hdr">
+        <i class="fa-solid fa-layer-group" style="color:var(--gold);font-size:.82rem;flex-shrink:0;"></i>
+        <input type="text" class="subcat-name-inp" value="${esc(sub.nombre)}" oninput="renameSubcat(${ci},${si},this.value)" placeholder="Nombre del grupo">
+        <button class="btn-ord" onclick="moveSubcat(${ci},${si},-1)" ${si===0?'disabled':''} title="Subir"><i class="fa-solid fa-arrow-up"></i></button>
+        <button class="btn-ord" onclick="moveSubcat(${ci},${si},1)"  ${si===subs.length-1?'disabled':''} title="Bajar"><i class="fa-solid fa-arrow-down"></i></button>
+        <button class="btn-del" onclick="delSubcat(${ci},${si})" title="Eliminar grupo"><i class="fa-solid fa-trash-can"></i></button>
+      </div>
+      ${itemRowsHtml(sub.items,
+          `updSubcatItem.bind(null,${ci},${si})`,
+          `delSubcatItem.bind(null,${ci},${si})`,
+          `addSubcatItem.bind(null,${ci},${si})`,
+          `si${si}`)}
+    </div>`).join('');
+
+  document.getElementById('mc-body').innerHTML = `
+    ${directHtml}
+    <div class="subcat-section-label">Grupos dentro de esta categoría <span style="color:var(--text);font-weight:400;text-transform:none;letter-spacing:0;">(${subs.length})</span></div>
+    ${subsHtml || `<p style="color:var(--muted);font-size:.81rem;margin-bottom:.7rem;">Sin grupos aún. Agrégalos para organizar ítems bajo un encabezado visible.</p>`}
+    <button class="btn-ghost" onclick="addSubcat(${ci})" style="margin-top:.2rem;"><i class="fa-solid fa-plus"></i> Nuevo grupo</button>`;
 }
+
 function renameCat(val) {
   D.menu.categorias[activeCat].nombre = val;
   document.querySelectorAll('.mctab')[activeCat].textContent = val;
 }
-function updItem(ci,ji,fld,val) { D.menu.categorias[ci].items[ji][fld] = val; }
-function delItem(ci,ji)        { D.menu.categorias[ci].items.splice(ji,1); renderMenuBody(); }
+// Direct item helpers (use .bind pattern so itemRowsHtml can inline them)
+function updItem(ci,j,fld,val)  { D.menu.categorias[ci].items[j][fld] = val; }
+function delItem(ci,j)          { D.menu.categorias[ci].items.splice(j,1); renderMenuBody(); }
 function addItem(ci) {
-  const n = document.getElementById('new-n').value.trim();
-  if (!n) return;
-  D.menu.categorias[ci].items.push({ nombre:n, desc:document.getElementById('new-d').value.trim(), precio:document.getElementById('new-p').value.trim() });
+  const n = document.getElementById('di-n').value.trim(); if (!n) return;
+  if (!D.menu.categorias[ci].items) D.menu.categorias[ci].items = [];
+  D.menu.categorias[ci].items.push({ nombre:n, desc:document.getElementById('di-d').value.trim(), precio:document.getElementById('di-p').value.trim() });
   renderMenuBody();
 }
+
+// Sub-subcategory helpers
+function addSubcat(ci) {
+  if (!D.menu.categorias[ci].subcategorias) D.menu.categorias[ci].subcategorias = [];
+  D.menu.categorias[ci].subcategorias.push({ nombre:'Nuevo Grupo', items:[] });
+  renderMenuBody();
+}
+function delSubcat(ci,si) {
+  if (!confirm('¿Eliminar este grupo y todos sus ítems?')) return;
+  D.menu.categorias[ci].subcategorias.splice(si,1);
+  renderMenuBody();
+}
+function renameSubcat(ci,si,val) { D.menu.categorias[ci].subcategorias[si].nombre = val; }
+function moveSubcat(ci,si,dir) {
+  const subs = D.menu.categorias[ci].subcategorias;
+  const ni = si+dir;
+  if (ni<0||ni>=subs.length) return;
+  [subs[si],subs[ni]] = [subs[ni],subs[si]];
+  renderMenuBody();
+}
+function updSubcatItem(ci,si,j,fld,val) { D.menu.categorias[ci].subcategorias[si].items[j][fld] = val; }
+function delSubcatItem(ci,si,j)         { D.menu.categorias[ci].subcategorias[si].items.splice(j,1); renderMenuBody(); }
+function addSubcatItem(ci,si) {
+  const n = document.getElementById(`si${si}-n`).value.trim(); if (!n) return;
+  if (!D.menu.categorias[ci].subcategorias[si].items) D.menu.categorias[ci].subcategorias[si].items = [];
+  D.menu.categorias[ci].subcategorias[si].items.push({ nombre:n, desc:document.getElementById(`si${si}-d`).value.trim(), precio:document.getElementById(`si${si}-p`).value.trim() });
+  renderMenuBody();
+}
+
 function addCategory() {
   if (!D.menu) D.menu = { categorias: [] };
-  D.menu.categorias.push({ id:'cat'+Date.now(), nombre:'Nueva Subcategoría', items:[] });
+  D.menu.categorias.push({ id:'cat'+Date.now(), nombre:'Nueva Categoría', items:[], subcategorias:[] });
   activeCat = D.menu.categorias.length - 1;
   renderMenuTabs();
 }
 function delCategory(ci) {
-  if (!confirm('¿Eliminar esta subcategoría y todos sus ítems?')) return;
+  if (!confirm('¿Eliminar esta categoría y todos sus ítems?')) return;
   D.menu.categorias.splice(ci,1);
   activeCat = Math.max(0, activeCat-1);
   renderMenuTabs();
