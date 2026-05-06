@@ -278,32 +278,52 @@
             "items": [
               {
                 "nombre": "Bistec a Caballo",
-                "desc": "",
+                "desc": "Lomo Viche bañado en Salsa Criolla y coronado con un huevo frito",
                 "precio": "75000"
               },
               {
                 "nombre": "Bistec a la Criolla",
-                "desc": "",
+                "desc": "Lomo Viche bañado en una deliciosa Salsa Criolla",
                 "precio": "75000"
               },
               {
                 "nombre": "Bistec Encebollado",
-                "desc": "",
+                "desc": "Lomo Viche bañado en un refrito de Cebolla Blanca",
                 "precio": "75000"
               },
               {
                 "nombre": "Filet Migñon",
-                "desc": "",
+                "desc": "Lomo Viche bañado en Salsa de Champiñones y rodeado de Tocineta ",
                 "precio": "75000"
               },
               {
                 "nombre": "Morrillo",
-                "desc": "",
+                "desc": "Cocido a Baja Temperatura con Tomates y Vino Tinto",
                 "precio": "58000"
               },
               {
                 "nombre": "Steak Pimienta",
-                "desc": "",
+                "desc": "Lomo Viche bañado en una deliciosa Salsa de Pimienta",
+                "precio": "75000"
+              }
+            ]
+          },
+          {
+            "nombre": "Cortes con Nuevas Salsas",
+            "items": [
+              {
+                "nombre": "Lomo en Salsa de Mostaza Antigua y Miel",
+                "desc": "Medallones de Lomo Viche bañados en Salsa de Mostaza Antigua y Miel, acompañado de una deliciosa Cebolla Frita",
+                "precio": "75000"
+              },
+              {
+                "nombre": "Lomo en Salsa de Queso Azul",
+                "desc": "Medallones de Lomo Viche bañados en Salsa de Queso Azul con Champiñones",
+                "precio": "75000"
+              },
+              {
+                "nombre": "Lomo en Salsa del Pacífico",
+                "desc": "Medallones de Lomo Viche bañados en una deliciosa Salsa de Camarones",
                 "precio": "75000"
               }
             ]
