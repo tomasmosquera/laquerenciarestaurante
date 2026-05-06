@@ -667,7 +667,7 @@
         <div class="contact-item"><i class="fa-solid fa-envelope ci-icon"></i><div class="ci-text"><h4>Email</h4><a href="mailto:reservas@laquerencia.co" id="lq-ct-email">reservas@laquerencia.co</a></div></div>
         <div class="contact-item"><i class="fa-brands fa-instagram ci-icon"></i><div class="ci-text"><h4>Instagram</h4><a href="https://www.instagram.com/la_querencia_restaurante/" target="_blank" rel="noopener" id="lq-ct-ig">@la_querencia_restaurante</a></div></div>
 
-        <div class="horarios">
+        <div class="horarios" id="lq-horarios">
           <h3>Horario de Atención</h3>
           <div class="h-row"><span class="h-day">Lun – Jue</span><span class="h-time">12–4 pm · 6–9:30 pm</span></div>
           <div class="h-row"><span class="h-day">Vie – Sáb</span><span class="h-time">12–4 pm · 6–10 pm</span></div>
@@ -796,6 +796,47 @@
 
   function lqEsc(s) {
     const d = document.createElement('div'); d.textContent = String(s||''); return d.innerHTML;
+  }
+
+  function fmtFranja(f) {
+    const [fH, fM] = f.desde.split(':').map(Number);
+    const [tH, tM] = f.hasta.split(':').map(Number);
+    const period   = tH >= 12 ? 'pm' : 'am';
+    const fH12     = fH % 12 === 0 ? 12 : fH % 12;
+    const tH12     = tH % 12 === 0 ? 12 : tH % 12;
+    const fromStr  = fM === 0 ? `${fH12}` : `${fH12}:${String(fM).padStart(2,'0')}`;
+    const toStr    = tM === 0 ? `${tH12}` : `${tH12}:${String(tM).padStart(2,'0')}`;
+    const fPeriod  = fH >= 12 ? 'pm' : 'am';
+    return fPeriod === period ? `${fromStr}–${toStr} ${period}` : `${fromStr} ${fPeriod}–${toStr} ${period}`;
+  }
+
+  function renderHorariosDisplay(hors) {
+    const el = document.getElementById('lq-horarios');
+    if (!el) return;
+    const ORDER    = ['lunes','martes','miercoles','jueves','viernes','sabado','domingo'];
+    const ABBR     = {lunes:'Lun',martes:'Mar',miercoles:'Mié',jueves:'Jue',viernes:'Vie',sabado:'Sáb',domingo:'Dom'};
+    const FULL     = {lunes:'Lunes',martes:'Martes',miercoles:'Miércoles',jueves:'Jueves',viernes:'Viernes',sabado:'Sábado',domingo:'Domingo'};
+    const entries  = ORDER.map(d => {
+      const day = hors[d];
+      if (!day || !day.abierto || !day.franjas || !day.franjas.length)
+        return {key:d, sig:'cerrado', label:null};
+      return {key:d, sig:JSON.stringify(day.franjas), label:day.franjas.map(fmtFranja).join(' · ')};
+    });
+    const groups = [];
+    let i = 0;
+    while (i < entries.length) {
+      let j = i + 1;
+      while (j < entries.length && entries[j].sig === entries[i].sig) j++;
+      groups.push({from:i, to:j-1, sig:entries[i].sig, label:entries[i].label});
+      i = j;
+    }
+    const rows = groups.filter(g => g.sig !== 'cerrado').map(g => {
+      const dayLabel = g.from === g.to
+        ? FULL[entries[g.from].key]
+        : `${ABBR[entries[g.from].key]} – ${ABBR[entries[g.to].key]}`;
+      return `<div class="h-row"><span class="h-day">${lqEsc(dayLabel)}</span><span class="h-time">${lqEsc(g.label)}</span></div>`;
+    }).join('');
+    el.innerHTML = `<h3>Horario de Atención</h3>${rows}`;
   }
 
   // Returns array of "H:MM AM/PM" slots for a given date string, or null if no horarios configured
@@ -946,6 +987,7 @@
     }
     if (d.horarios) {
       lqHorarios = d.horarios;
+      renderHorariosDisplay(d.horarios);
       if (document.getElementById('resDate').value) updateHoraSelect();
     }
   }
