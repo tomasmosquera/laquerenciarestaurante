@@ -29,58 +29,6 @@
   "menu": {
     "categorias": [
       {
-        "id": "cat1778032273750",
-        "nombre": "Sopas y Cremas",
-        "items": [
-          {
-            "nombre": "De Maíz",
-            "desc": "Crema de maíz dulce, croutons y queso fresco",
-            "precio": "$20.500"
-          },
-          {
-            "nombre": "De Tomate",
-            "desc": "Sopa a base de tomates frescos, aceite de oliva, ajo, pimentón rojo",
-            "precio": "$20.500"
-          },
-          {
-            "nombre": "Cazuela de Mariscos",
-            "desc": "Variedad de Mariscos con Leche de Coco y",
-            "precio": "$63.000"
-          },
-          {
-            "nombre": "Encocado de Camarón",
-            "desc": "Camarones Guisados con Sofrito del",
-            "precio": "$60.000"
-          }
-        ]
-      },
-      {
-        "id": "cat1778032394350",
-        "nombre": "Ensaladas",
-        "items": [
-          {
-            "nombre": "Ensalada Cesar",
-            "desc": "Ensalada de Lechuga Romana, Croutons y",
-            "precio": "$43.000"
-          },
-          {
-            "nombre": "Ensalada de Mariscos",
-            "desc": "Ensalada con Variedad de Lechugas, Cebolla",
-            "precio": "$45.000"
-          },
-          {
-            "nombre": "Ensalada La Querencia",
-            "desc": "Con Laminas de Lomo Viche (Termino Azul) , Variedad de Lechugas, ñones, Rugula, Tomates Cherry, Parmesano y Aderezo de Aceto Balsamico",
-            "precio": "$45.000"
-          },
-          {
-            "nombre": "Ensalada Caprese",
-            "desc": "Ensalada con Variedad de Tomates. Mozzarella Di Buffala, Albahaca y Nueces",
-            "precio": "$43.000"
-          }
-        ]
-      },
-      {
         "id": "entradas",
         "nombre": "Entradas para Compartir",
         "items": [
@@ -182,6 +130,58 @@
         ]
       },
       {
+        "id": "cat1778032273750",
+        "nombre": "Sopas y Cremas",
+        "items": [
+          {
+            "nombre": "De Maíz",
+            "desc": "Crema de maíz dulce, croutons y queso fresco",
+            "precio": "$20.500"
+          },
+          {
+            "nombre": "De Tomate",
+            "desc": "Sopa a base de tomates frescos, aceite de oliva, ajo, pimentón rojo",
+            "precio": "$20.500"
+          },
+          {
+            "nombre": "Cazuela de Mariscos",
+            "desc": "Variedad de Mariscos con Leche de Coco y",
+            "precio": "$63.000"
+          },
+          {
+            "nombre": "Encocado de Camarón",
+            "desc": "Camarones Guisados con Sofrito del",
+            "precio": "$60.000"
+          }
+        ]
+      },
+      {
+        "id": "cat1778032394350",
+        "nombre": "Ensaladas",
+        "items": [
+          {
+            "nombre": "Ensalada Cesar",
+            "desc": "Ensalada de Lechuga Romana, Croutons y",
+            "precio": "$43.000"
+          },
+          {
+            "nombre": "Ensalada de Mariscos",
+            "desc": "Ensalada con Variedad de Lechugas, Cebolla",
+            "precio": "$45.000"
+          },
+          {
+            "nombre": "Ensalada La Querencia",
+            "desc": "Con Laminas de Lomo Viche (Termino Azul) , Variedad de Lechugas, ñones, Rugula, Tomates Cherry, Parmesano y Aderezo de Aceto Balsamico",
+            "precio": "$45.000"
+          },
+          {
+            "nombre": "Ensalada Caprese",
+            "desc": "Ensalada con Variedad de Tomates. Mozzarella Di Buffala, Albahaca y Nueces",
+            "precio": "$43.000"
+          }
+        ]
+      },
+      {
         "id": "parrilla",
         "nombre": "Parrilla",
         "items": [
@@ -275,27 +275,42 @@
       },
       {
         "id": "acomp",
-        "nombre": "Acompañamientos",
+        "nombre": "Adiciones",
         "items": [
           {
-            "nombre": "Papas Rústicas",
-            "desc": "Papas al horno con piel, romero, ajo y aceite de oliva.",
-            "precio": "$18.000"
+            "nombre": "Segundo Acompañante",
+            "desc": "Arroz - Ensalada de la Casa - Papa Cocida - Francesa - Pure de Papa - Fettuccine al Burro, al Pesto, Alfredo",
+            "precio": "$6.500"
           },
           {
-            "nombre": "Ensalada Criolla",
-            "desc": "Tomate, cebolla, pimientos y cilantro con vinagreta de la casa.",
+            "nombre": "Tarro de Chimichurry",
+            "desc": "8 Onzas",
             "precio": "$15.000"
           },
           {
-            "nombre": "Chimichurri & Pan",
-            "desc": "Pan de campo artesanal con chimichurri rojo y verde de preparación propia.",
-            "precio": "$12.000"
+            "nombre": "Tarro de Chimichurry",
+            "desc": "16 Onzas",
+            "precio": "$29.000"
           },
           {
-            "nombre": "Arroz Meloso",
-            "desc": "Arroz cremoso con mantequilla, parmesano y hierbas frescas.",
-            "precio": "$16.000"
+            "nombre": "Otros Acompañantes",
+            "desc": "Cascos de Limón - Sour Cream - Huevo - Arepa",
+            "precio": "$3.500"
+          },
+          {
+            "nombre": "Otros Acompañantes",
+            "desc": "Aguacate - Tocineta - Limón - Tomate - Tostadas",
+            "precio": "$6.000"
+          },
+          {
+            "nombre": "Salsas 1",
+            "desc": "BBQ - Champiñones - Criolla - Encebollado",
+            "precio": "$7.000"
+          },
+          {
+            "nombre": "Salsas 2",
+            "desc": "Filet Migñon - Steak Pimienta - Queso Azul - Mostaza Antigua - Camarones",
+            "precio": "$8.000"
           }
         ]
       },
