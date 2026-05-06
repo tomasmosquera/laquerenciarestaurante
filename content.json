@@ -153,6 +153,21 @@
             "nombre": "Ubre",
             "desc": "",
             "precio": "$25.000"
+          },
+          {
+            "nombre": "Ceviche Mixto",
+            "desc": "Camaron, Pulpo, Calamar y Pescado con Leche de Tigre de Cimmarron",
+            "precio": "$48.500"
+          },
+          {
+            "nombre": "Ceviche Tradicional del Pacífico",
+            "desc": "Con Salsa de Tomate, Camarones,",
+            "precio": "$47.500"
+          },
+          {
+            "nombre": "Pulpo Asado a la Parrilla",
+            "desc": "Con chimichurry, papas amarillas doradas",
+            "precio": "$55.000"
           }
         ]
       },
