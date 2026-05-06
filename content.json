@@ -29,6 +29,48 @@
   "menu": {
     "categorias": [
       {
+        "id": "cat1778032273750",
+        "nombre": "Sopas y Cremas",
+        "items": [
+          {
+            "nombre": "De Maíz",
+            "desc": "Crema de maíz dulce, croutons y queso fresco",
+            "precio": "$20.500"
+          },
+          {
+            "nombre": "De Tomate",
+            "desc": "Sopa a base de tomates frescos, aceite de oliva, ajo, pimentón rojo",
+            "precio": "$20.500"
+          }
+        ]
+      },
+      {
+        "id": "cat1778032394350",
+        "nombre": "Ensaladas",
+        "items": [
+          {
+            "nombre": "Ensalada Cesar",
+            "desc": "Ensalada de Lechuga Romana, Croutons y",
+            "precio": "$43.000"
+          },
+          {
+            "nombre": "Ensalada de Mariscos",
+            "desc": "Ensalada con Variedad de Lechugas, Cebolla",
+            "precio": "$45.000"
+          },
+          {
+            "nombre": "Ensalada La Querencia",
+            "desc": "Con Laminas de Lomo Viche (Termino Azul) , Variedad de Lechugas, ñones, Rugula, Tomates Cherry, Parmesano y Aderezo de Aceto Balsamico",
+            "precio": "$45.000"
+          },
+          {
+            "nombre": "Ensalada Caprese",
+            "desc": "Ensalada con Variedad de Tomates. Mozzarella Di Buffala, Albahaca y Nueces",
+            "precio": "$43.000"
+          }
+        ]
+      },
+      {
         "id": "entradas",
         "nombre": "Entradas",
         "items": [
@@ -191,22 +233,6 @@
             "nombre": "Bebidas sin Alcohol",
             "desc": "Agua, gaseosas, jugos naturales de temporada.",
             "precio": "Desde $8.000"
-          }
-        ]
-      },
-      {
-        "id": "cat1778032273750",
-        "nombre": "Sopas y Cremas",
-        "items": [
-          {
-            "nombre": "De Maíz",
-            "desc": "Crema de maíz dulce, croutons y queso fresco",
-            "precio": "$20.500"
-          },
-          {
-            "nombre": "De Tomate",
-            "desc": "Sopa a base de tomates frescos, aceite de oliva, ajo, pimentón rojo",
-            "precio": "$20.500"
           }
         ]
       }
