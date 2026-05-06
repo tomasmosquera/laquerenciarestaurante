@@ -184,7 +184,7 @@
       },
       {
         "id": "parrilla",
-        "nombre": "Parrilla y Algo Más",
+        "nombre": "Parrilla",
         "items": [],
         "subcategorias": [
           {
@@ -325,6 +325,108 @@
                 "nombre": "Lomo en Salsa del Pacífico",
                 "desc": "Medallones de Lomo Viche bañados en una deliciosa Salsa de Camarones",
                 "precio": "75000"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "cat1778039462448",
+        "nombre": "Algo Más",
+        "items": [],
+        "subcategorias": [
+          {
+            "nombre": "Pollo",
+            "items": [
+              {
+                "nombre": "Pollo a la Parrilla",
+                "desc": "",
+                "precio": "62500"
+              },
+              {
+                "nombre": "Pollo en Salsa de Champiñones",
+                "desc": "",
+                "precio": "67000"
+              }
+            ]
+          },
+          {
+            "nombre": "Cerdo",
+            "items": [
+              {
+                "nombre": "Bodiola de Cerdo con Cerveza Negra y Miel",
+                "desc": "",
+                "precio": "58000"
+              },
+              {
+                "nombre": "Lomo de Cerdo a la Parrilla",
+                "desc": "",
+                "precio": "58000"
+              },
+              {
+                "nombre": "Costillas BBQ",
+                "desc": "Costillas Ahumadas con Salsa de BBQ",
+                "precio": "67500"
+              },
+              {
+                "nombre": "Bondiola de Cerdo a la Parrilla",
+                "desc": "",
+                "precio": "55500"
+              }
+            ]
+          },
+          {
+            "nombre": "Plato Especial",
+            "items": [
+              {
+                "nombre": "Guiso Argentino",
+                "desc": "Guiso de Carne Tradicional Argentino, Coronado con Puré Dulce de Choclos y Queso Gratinado",
+                "precio": "55000"
+              }
+            ]
+          },
+          {
+            "nombre": "Hamburguesas",
+            "items": [
+              {
+                "nombre": "Hamburguesa Americana",
+                "desc": "Hamburguesa Americana de 250 gramos con blend de Bife de Chorizo, Punta de Anca, Tocineta Ahumada, Queso Cheddar y Aderezo de la Casa",
+                "precio": "50000"
+              }
+            ]
+          },
+          {
+            "nombre": "Milanesas",
+            "items": [
+              {
+                "nombre": "De Cerdo",
+                "desc": "",
+                "precio": "58900"
+              },
+              {
+                "nombre": "De Pollo",
+                "desc": "",
+                "precio": "60000"
+              },
+              {
+                "nombre": "De Res",
+                "desc": "",
+                "precio": "67500"
+              },
+              {
+                "nombre": "Gratinada",
+                "desc": "Milanesa de Pollo o de Lomo o de Cerdo con Salsa Blanca Trufada, jamón York y Gratinada con Mozzarrella y Parmesano",
+                "precio": "65000"
+              },
+              {
+                "nombre": "De Cerdo con Hueso a la Napolitana",
+                "desc": "",
+                "precio": "65000"
+              },
+              {
+                "nombre": "Milanesa de Cerdo con Hueso, Jamón Serrano y Rúgula Fresca",
+                "desc": "",
+                "precio": "65000"
               }
             ]
           }
