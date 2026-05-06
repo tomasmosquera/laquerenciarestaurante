@@ -183,37 +183,27 @@
       },
       {
         "id": "parrilla",
-        "nombre": "Parrilla",
+        "nombre": "Parrilla - Certified Angus Beef",
         "items": [
           {
-            "nombre": "Bife de Chorizo",
-            "desc": "Corte clásico argentino, 350g a la parrilla con chimichurri de la casa.",
-            "precio": "$85.000"
-          },
-          {
-            "nombre": "Lomo al Trapo",
-            "desc": "Lomo envuelto en sal y trapo, cocción lenta sobre las brasas.",
-            "precio": "$95.000"
+            "nombre": "Asado de Tira",
+            "desc": "",
+            "precio": "$103.000"
           },
           {
             "nombre": "Entraña",
-            "desc": "Corte tradicional con textura única. Ideal para los amantes del sabor intenso.",
-            "precio": "$72.000"
+            "desc": "",
+            "precio": "$115.000"
           },
           {
-            "nombre": "Asado de Tira",
-            "desc": "Costillas cortas con marmoleo perfecto. Cocción lenta para una experiencia sin igual.",
-            "precio": "$78.000"
+            "nombre": "New York ",
+            "desc": "",
+            "precio": "$98.000"
           },
           {
-            "nombre": "Ojo de Bife",
-            "desc": "Ribeye argentino, abundante marmoleo y sabor profundo. El rey de la parrilla.",
-            "precio": "$105.000"
-          },
-          {
-            "nombre": "Parrillada Completa",
-            "desc": "Morcilla, chorizo, mollejas, riñones, vacío y entraña. Para 2 personas.",
-            "precio": "$180.000"
+            "nombre": "Picaña",
+            "desc": "",
+            "precio": "$95.000"
           }
         ]
       },
