@@ -619,17 +619,17 @@
         <h3 class="res-form-title">Haz tu Reserva</h3>
         <form id="resForm" onsubmit="submitRes(event)">
           <div class="form-row">
-            <div class="fg"><label>Nombre</label><input type="text" placeholder="Tu nombre" required></div>
-            <div class="fg"><label>Apellido</label><input type="text" placeholder="Tu apellido" required></div>
+            <div class="fg"><label>Nombre</label><input id="resNombre" type="text" placeholder="Tu nombre" required></div>
+            <div class="fg"><label>Apellido</label><input id="resApellido" type="text" placeholder="Tu apellido" required></div>
           </div>
           <div class="form-row">
-            <div class="fg"><label>Teléfono</label><input type="tel" placeholder="+57 300 000 0000" required></div>
-            <div class="fg"><label>Email</label><input type="email" placeholder="tu@email.com"></div>
+            <div class="fg"><label>Teléfono</label><input id="resTel" type="tel" placeholder="+57 300 000 0000" required></div>
+            <div class="fg"><label>Email</label><input id="resEmail" type="email" placeholder="tu@email.com"></div>
           </div>
           <div class="form-row">
             <div class="fg"><label>Fecha</label><input type="date" id="resDate" required></div>
             <div class="fg"><label>Hora</label>
-              <select required>
+              <select id="resHora" required>
                 <option value="" disabled selected>Seleccionar</option>
                 <option>12:00 PM</option><option>12:30 PM</option><option>1:00 PM</option>
                 <option>1:30 PM</option><option>2:00 PM</option><option>7:00 PM</option>
@@ -638,14 +638,14 @@
             </div>
           </div>
           <div class="fg"><label>Número de Personas</label>
-            <select required>
+            <select id="resPersonas" required>
               <option value="" disabled selected>Seleccionar</option>
               <option>1 persona</option><option>2 personas</option><option>3 personas</option>
               <option>4 personas</option><option>5 personas</option><option>6 personas</option>
               <option>7 – 10 personas</option><option>Más de 10 (evento privado)</option>
             </select>
           </div>
-          <div class="fg"><label>Solicitudes Especiales</label><textarea placeholder="Alergias, ocasión especial, preferencia de mesa…"></textarea></div>
+          <div class="fg"><label>Solicitudes Especiales</label><textarea id="resNotas" placeholder="Alergias, ocasión especial, preferencia de mesa…"></textarea></div>
           <button type="submit" class="btn-gold btn-full">Solicitar Reserva</button>
         </form>
       </div>
@@ -919,9 +919,37 @@
   }
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
 
-  // Reservation form
+  // Reservation form → WhatsApp
   function submitRes(e) {
     e.preventDefault();
+    const nombre   = document.getElementById('resNombre').value.trim();
+    const apellido = document.getElementById('resApellido').value.trim();
+    const tel      = document.getElementById('resTel').value.trim();
+    const email    = document.getElementById('resEmail').value.trim();
+    const fecha    = document.getElementById('resDate').value;
+    const hora     = document.getElementById('resHora').value;
+    const personas = document.getElementById('resPersonas').value;
+    const notas    = document.getElementById('resNotas').value.trim();
+
+    const fechaFmt = fecha
+      ? new Date(fecha + 'T12:00:00').toLocaleDateString('es-CO', {weekday:'long', year:'numeric', month:'long', day:'numeric'})
+      : '';
+
+    let msg = `Hola, quisiera hacer una reserva en La Querencia:\n\n`;
+    msg += `👤 *Nombre:* ${nombre} ${apellido}\n`;
+    msg += `📞 *Teléfono:* ${tel}\n`;
+    if (email) msg += `✉️ *Email:* ${email}\n`;
+    msg += `📅 *Fecha:* ${fechaFmt}\n`;
+    msg += `🕐 *Hora:* ${hora}\n`;
+    msg += `👥 *Personas:* ${personas}\n`;
+    if (notas) msg += `📝 *Solicitudes especiales:* ${notas}\n`;
+
+    const waEl = document.getElementById('lq-ct-wa');
+    const waHref = waEl ? waEl.href : 'https://wa.me/573152834811';
+    const waNum = waHref.replace('https://wa.me/', '');
+
+    window.open(`https://wa.me/${waNum}?text=${encodeURIComponent(msg)}`, '_blank');
+
     const t = document.getElementById('toast');
     t.classList.add('on');
     setTimeout(() => t.classList.remove('on'), 4500);
