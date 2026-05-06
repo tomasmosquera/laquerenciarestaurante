@@ -267,12 +267,21 @@
     .menu-item p { font-family:var(--elegant); font-size:.9rem; color:var(--muted); line-height:1.65; max-width:310px; }
     .menu-price { font-family:var(--serif); font-size:.95rem; color:var(--gold); white-space:nowrap; flex-shrink:0; padding-top:.15rem; }
     .menu-note { text-align:center; margin-top:2.5rem; font-family:var(--elegant); font-size:.95rem; color:var(--muted); }
-    .menu-subcat { grid-column:1/-1; }
+    .menu-subcat {
+      grid-column:1/-1;
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(460px,1fr));
+    }
     .menu-subcat-title {
+      grid-column:1/-1;
       font-family:var(--sans); font-size:.68rem; font-weight:700;
       letter-spacing:3px; text-transform:uppercase; color:var(--gold);
       padding:.9rem 1.8rem .3rem; opacity:.75;
       border-top:1px solid rgba(255,255,255,.055); margin-top:.4rem;
+    }
+    .menu-subcat-desc {
+      grid-column:1/-1;
+      font-family:var(--elegant); font-size:.88rem; color:var(--muted);
+      padding:.1rem 1.8rem .5rem; line-height:1.6;
     }
     .menu-subcat:first-child .menu-subcat-title { border-top:none; margin-top:0; }
 
@@ -412,6 +421,7 @@
       .about-images { height:360px; }
       .gallery-grid { grid-template-columns:repeat(2,1fr); }
       .menu-cat.on { grid-template-columns:1fr; }
+      .menu-subcat { grid-template-columns:1fr; }
     }
     @media (max-width:768px) {
       .nav-links { display:none; }
@@ -787,10 +797,22 @@
     const d = document.createElement('div'); d.textContent = String(s||''); return d.innerHTML;
   }
 
+  function fmtPrice(raw) {
+    if (!raw) return '';
+    const s = String(raw).trim();
+    const prefix = s.match(/^[^0-9]*/)[0];
+    const numPart = s.replace(/^[^0-9]*/, '').replace(/[.$,]/g, '');
+    const n = parseInt(numPart, 10);
+    if (isNaN(n)) return s;
+    const formatted = n.toLocaleString('es-CO').replace(/,/g, '.');
+    const cleanPrefix = prefix.replace(/\$/, '').trim();
+    return (cleanPrefix ? cleanPrefix + ' ' : '') + '$' + formatted;
+  }
+
   function menuItemHtml(item) {
     return `<div class="menu-item">
       <div><h3>${lqEsc(item.nombre)}</h3><p>${lqEsc(item.desc)}</p></div>
-      <span class="menu-price">${lqEsc(item.precio)}</span>
+      <span class="menu-price">${lqEsc(fmtPrice(item.precio))}</span>
     </div>`;
   }
 
@@ -811,6 +833,7 @@
         inner += c.subcategorias.map(sub => `
           <div class="menu-subcat">
             <div class="menu-subcat-title">${lqEsc(sub.nombre)}</div>
+            ${sub.descripcion ? `<div class="menu-subcat-desc">${lqEsc(sub.descripcion)}</div>` : ''}
             ${(sub.items||[]).map(menuItemHtml).join('')}
           </div>`).join('');
       }

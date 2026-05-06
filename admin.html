@@ -584,6 +584,7 @@ function renderMenuBody() {
         <button class="btn-ord" onclick="moveSubcat(${ci},${si},1)"  ${si===subs.length-1?'disabled':''} title="Bajar"><i class="fa-solid fa-arrow-down"></i></button>
         <button class="btn-del" onclick="delSubcat(${ci},${si})" title="Eliminar grupo"><i class="fa-solid fa-trash-can"></i></button>
       </div>
+      <input type="text" class="subcat-name-inp" style="width:100%;margin-bottom:.6rem;font-size:.8rem;color:var(--muted);" value="${esc(sub.descripcion||'')}" oninput="updSubcatDesc(${ci},${si},this.value)" placeholder="Descripción del grupo (opcional)">
       ${itemRowsHtml(sub.items,
           `updSubcatItem.bind(null,${ci},${si})`,
           `delSubcatItem.bind(null,${ci},${si})`,
@@ -624,6 +625,7 @@ function delSubcat(ci,si) {
   renderMenuBody();
 }
 function renameSubcat(ci,si,val) { D.menu.categorias[ci].subcategorias[si].nombre = val; }
+function updSubcatDesc(ci,si,val) { D.menu.categorias[ci].subcategorias[si].descripcion = val; }
 function moveSubcat(ci,si,dir) {
   const subs = D.menu.categorias[ci].subcategorias;
   const ni = si+dir;
