@@ -1,6 +1,6 @@
 {
   "nosotros": {
-    "titulo": "El lugar donde perteneces!",
+    "titulo": "El lugar donde perteneces",
     "p1": "Querencia es una palabra del alma argentina: el lugar al que uno regresa porque siente que pertenece. Aquí, en el corazón de Cali, traemos lo más auténtico de la tradición parrillera del Río de la Plata.",
     "p2": "Nuestros cortes son seleccionados con rigor, madurados en cámara y cocinados a fuego lento sobre leña y carbón. Cada plato es un homenaje a la cultura gaucha que ha hecho de la parrilla una ceremonia.",
     "features": [
@@ -33,7 +33,7 @@
         "nombre": "Entradas",
         "items": [
           {
-            "nombre": "Empanadas Criollas",
+            "nombre": "Empanada Criolla",
             "desc": "Masa artesanal rellena de carne especiada con cebolla y huevo. Porción 4 unidades.",
             "precio": "$28.000"
           },
