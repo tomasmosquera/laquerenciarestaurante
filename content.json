@@ -184,7 +184,7 @@
       },
       {
         "id": "parrilla",
-        "nombre": "Parrilla",
+        "nombre": "Parrilla y Algo Más",
         "items": [],
         "subcategorias": [
           {
@@ -259,6 +259,16 @@
                 "nombre": "Bife de Chorizo",
                 "desc": "400 Gramos",
                 "precio": "$75.000"
+              }
+            ]
+          },
+          {
+            "nombre": "Parrilladas para Compartir",
+            "items": [
+              {
+                "nombre": "Parrillada Argentina (3 Personas)",
+                "desc": "Parrillada de Lomo Viche, Pollo, Cerdo, Morcilla, Chorizo, Ubre y Chunchulo",
+                "precio": "$160.000"
               }
             ]
           }
