@@ -222,14 +222,54 @@
         "nombre": "Pescados y Mariscos",
         "items": [
           {
-            "nombre": "Langostinos en salsa de pimientos asados",
-            "desc": "Langostinos en salsa de pimientos asados con aceite de oliva y un poco de limón.",
-            "precio": "$110.000"
+            "nombre": "Pesca del Día Frita",
+            "desc": "Pescado Frito con Ají Criollo de Cimarrón, ",
+            "precio": "$73.500"
           },
           {
-            "nombre": "Filete de Salmón",
-            "desc": "Puedes pedirlo con: Salsa de vino blanco, crema y alcaparras /Menier/ Mantequilla y limón.",
-            "precio": "$87.000"
+            "nombre": "Robalo a la Plancha ",
+            "desc": "",
+            "precio": "$65.000"
+          },
+          {
+            "nombre": "Robalo en Salsa de Maracuyá",
+            "desc": "",
+            "precio": "$67.500"
+          },
+          {
+            "nombre": "Robalo en Salsa de Camarón",
+            "desc": "",
+            "precio": "$70.000"
+          },
+          {
+            "nombre": "Langostinos Gratinados",
+            "desc": "Langostinos Gratinados al Ajillo Talla U12 x",
+            "precio": "$72.500"
+          },
+          {
+            "nombre": "Atún Encostrado",
+            "desc": "Filete de Atún Encostrado en Ajonjolí asado a la parrilla y acompañado con Ensalada de Quinua y Verduras Asiáticas",
+            "precio": "$64.000"
+          },
+          {
+            "nombre": "Salmón a la Plancha",
+            "desc": "",
+            "precio": "$63.000"
+          },
+          {
+            "nombre": "Salmón en Salsa de Maracuyá",
+            "desc": "",
+            "precio": "$65.500"
+          },
+          {
+            "nombre": "Salmón en Salsa de Camarón",
+            "desc": "",
+            "precio": "$70.500"
+          },
+          {
+            "nombre": "Salmón Encostrado en Pistacho",
+            "desc": "Con Ensalada de Zanahorias, Espárragos, Zucchini y Vinagreta de Miel Mostaza",
+            "precio": "$63.500"
           }
         ]
       },
