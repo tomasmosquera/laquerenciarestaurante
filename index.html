@@ -270,20 +270,22 @@
     .menu-subcat {
       grid-column:1/-1;
       display:grid; grid-template-columns:repeat(auto-fit,minmax(460px,1fr));
+      margin-top:2.2rem;
     }
     .menu-subcat-title {
       grid-column:1/-1;
-      font-family:var(--sans); font-size:.68rem; font-weight:700;
+      font-family:var(--sans); font-size:.78rem; font-weight:700;
       letter-spacing:3px; text-transform:uppercase; color:var(--gold);
-      padding:.9rem 1.8rem .3rem; opacity:.75;
-      border-top:1px solid rgba(255,255,255,.055); margin-top:.4rem;
+      padding:.5rem 1.8rem .4rem; opacity:.85;
+      border-top:1px solid rgba(255,255,255,.055);
     }
     .menu-subcat-desc {
       grid-column:1/-1;
       font-family:var(--elegant); font-size:.88rem; color:var(--muted);
       padding:.1rem 1.8rem .5rem; line-height:1.6;
     }
-    .menu-subcat:first-child .menu-subcat-title { border-top:none; margin-top:0; }
+    .menu-subcat:first-child { margin-top:.5rem; }
+    .menu-subcat:first-child .menu-subcat-title { border-top:none; }
 
     /* ── GALERÍA ── */
     #galeria { padding:8rem 4rem; background:var(--dark); }
