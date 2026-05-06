@@ -208,6 +208,42 @@
         ]
       },
       {
+        "id": "cat1778037468080",
+        "nombre": "Parrilla - Cortes Delgados",
+        "items": [
+          {
+            "nombre": "Baby Beef",
+            "desc": "300 Gramos",
+            "precio": "$68.500"
+          },
+          {
+            "nombre": "Baby Beef",
+            "desc": "400 Gramos",
+            "precio": "$75.000"
+          },
+          {
+            "nombre": "Lomo Caracha",
+            "desc": "300 Gramos",
+            "precio": "$68.500"
+          },
+          {
+            "nombre": "Lomo Caracha",
+            "desc": "400 Gramos",
+            "precio": "$75.000"
+          },
+          {
+            "nombre": "Punta de Anca",
+            "desc": "300 Gramos",
+            "precio": "$68.500"
+          },
+          {
+            "nombre": "Punta de Anca",
+            "desc": "400 Gramos",
+            "precio": "$75.000"
+          }
+        ]
+      },
+      {
         "id": "cat1778015888657",
         "nombre": "Pescados y Mariscos",
         "items": [
