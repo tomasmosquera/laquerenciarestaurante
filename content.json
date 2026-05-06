@@ -851,5 +851,94 @@
     "direccion": "Av. 8 Norte No 23N-79, Santa Mónica, Cali",
     "email": "reservas@laquerencia.co",
     "instagram": "la_querencia_restaurante"
+  },
+  "horarios": {
+    "lunes": {
+      "abierto": true,
+      "franjas": [
+        {
+          "desde": "12:00",
+          "hasta": "16:00"
+        },
+        {
+          "desde": "18:00",
+          "hasta": "21:30"
+        }
+      ]
+    },
+    "martes": {
+      "abierto": true,
+      "franjas": [
+        {
+          "desde": "12:00",
+          "hasta": "16:00"
+        },
+        {
+          "desde": "18:00",
+          "hasta": "21:30"
+        }
+      ]
+    },
+    "miercoles": {
+      "abierto": true,
+      "franjas": [
+        {
+          "desde": "12:00",
+          "hasta": "16:00"
+        },
+        {
+          "desde": "18:00",
+          "hasta": "21:30"
+        }
+      ]
+    },
+    "jueves": {
+      "abierto": true,
+      "franjas": [
+        {
+          "desde": "12:00",
+          "hasta": "16:00"
+        },
+        {
+          "desde": "18:00",
+          "hasta": "21:30"
+        }
+      ]
+    },
+    "viernes": {
+      "abierto": true,
+      "franjas": [
+        {
+          "desde": "12:00",
+          "hasta": "16:00"
+        },
+        {
+          "desde": "18:00",
+          "hasta": "22:00"
+        }
+      ]
+    },
+    "sabado": {
+      "abierto": true,
+      "franjas": [
+        {
+          "desde": "12:00",
+          "hasta": "16:00"
+        },
+        {
+          "desde": "18:00",
+          "hasta": "22:00"
+        }
+      ]
+    },
+    "domingo": {
+      "abierto": true,
+      "franjas": [
+        {
+          "desde": "12:00",
+          "hasta": "16:00"
+        }
+      ]
+    }
   }
 }
